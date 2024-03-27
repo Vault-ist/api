@@ -1,4 +1,4 @@
-##Registration Process
+# Registration Process
 
 ### Step 1: Phone Number Registration
 
