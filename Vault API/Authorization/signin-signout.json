@@ -282,6 +282,68 @@
           }
         }
       }
+    },
+	"400": {
+  "description": "The response status code indicates that the server cannot or will not process the request due to something perceived as a client error.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "A message that provides information about the error."
+          },
+          "field": {
+            "type": "string",
+            "description": "Specifies the field in the request that caused the error, if applicable."
+          },
+          "errorId": {
+            "type": "integer",
+            "description": "An integer identifier of the error for tracking and debugging purposes."
+          },
+          "systemId": {
+            "type": "string",
+            "description": "An identifier of the component or system where the error occurred."
+          },
+          "originalMessage": {
+            "type": "string",
+            "description": "The original error message, if available."
+          },
+          "errorStackTrace": {
+            "type": "string",
+            "description": "The stack trace or the place where the error appeared in the code, if available."
+          },
+          "data": {
+            "type": "object",
+            "description": "Additional data related to the error, structured as key-value pairs."
+          },
+          "error": {
+            "type": "string",
+            "description": "An identifier of the error for programmatic handling."
+          }
+        },
+        "x-examples": {
+          "Example 1": {
+            "message": "Invalid request body",
+            "errorId": 123,
+            "systemId": "auth",
+            "error": "INVALID_REQUEST_BODY"
+          }
+        }
+      },
+      "examples": {
+        "400 Bad Request": {
+          "value": {
+            "message": "Invalid request body",
+            "errorId": 123,
+            "systemId": "auth",
+            "error": "INVALID_REQUEST_BODY"
+          }
+        }
+      }
     }
+  }
+}
   }
 }
