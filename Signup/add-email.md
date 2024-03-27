@@ -1,13 +1,52 @@
----
-title: "Add Email"
-slug: "add-email"
-excerpt: "This endpoint is designed for adding a new email address to a user's account."
-hidden: false
-createdAt: "Wed Mar 13 2024 13:41:17 GMT+0000 (Coordinated Universal Time)"
-updatedAt: "Wed Mar 20 2024 18:26:25 GMT+0000 (Coordinated Universal Time)"
----
-> 🚧 Changing the email address manually by the user is not available.
-> 
-> The email address can only be changed through customer support.
+# Instruction: Add Email
 
-Instructions for using the endpoint are available [here](https://vault-bxou.readme.io/docs/add-email-instruction).
+This endpoint is designed for adding a new email address to a user's account.
+> 📘 After [confirming the phone number](https://vault-bxou.readme.io/reference/confirm-phone-number) or after [user authorization](https://vault-bxou.readme.io/reference/signin), you will receive an **access_token**. You need to enter this **access_token** in the `Token` field.
+
+
+## **The required body parameters**
+
+```json json_schema
+{
+  "type": "object",
+  "required": ["email"],
+  "properties": {
+    "email": {
+      "type": "string",
+      "description": "the new email address to be added to the user's account.",
+    }
+  }
+}
+
+```
+
+## **Request Sample: cURL**
+
+At the time of sending the request, the curl command should be as follows:
+
+```curl cURL
+curl --request PUT \
+     --url https://api.vault.sandbox.testessential.net/v2/mobile/email/add \
+     --header 'accept: application/json' \
+     --header 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwNTFhYTc3Mi0yNDk4LTQ0ZTEtODdmYi0zYzNhZDdlMTY1ODgiLCJleHAiOjE3MTEwMzgxMjAsImlhdCI6MTcxMDk1MTcyMH0.yUvwJWyilQOdeKi3rnCAyaU3QuCEV0ijoZGCHY9NhTA' \
+     --header 'content-type: application/json' \
+     --data '
+{
+  "email": "test@gmail.com"
+}
+'
+```
+
+
+## **Response Example**
+
+The response status code indicates that the request was successfully processed.
+
+```json
+{
+  "result": "ok"
+}
+```
+
+![Logo](https://files.readme.io/0dcc41c-logo.png)
+
