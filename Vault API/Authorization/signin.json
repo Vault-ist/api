@@ -126,154 +126,159 @@
               }
             }
           },
-         "400": {
-  "description": "The response status code indicates that the server cannot or will not process the request due to something perceived as a client error.\r\n\r\nMedia type: `application/json`",
-  "content": {
-    "application/json": {
-      "schema": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "description": "message that will be displayed to the user."
-          },
-          "field": {
-            "type": "string",
-            "description": "specifies the field in the request that caused the error."
-          },
-          "errorId": {
-            "type": "integer",
-            "description": "integer identifier of the error."
-          },
-          "systemId": {
-            "type": "string",
-            "description": "identifier of the component."
-          },
-          "originalMessage": {
-            "type": "string",
-            "description": "the original error message."
-          },
-          "errorStackTrace": {
-            "type": "string",
-            "description": "additional data related to the error, structured as key-value pairs."
-          },
-          "data": {
-            "type": "object",
-            "description": "additional data related to the error, structured as key-value pairs.",
-            "properties": {
-              "additionalProp1": {
-                "type": "object"
-              },
-              "additionalProp2": {
-                "type": "object"
-              },
-              "additionalProp3": {
-                "type": "object"
+          "400": {
+            "description": "The response status code indicates that the server cannot or will not process the request due to something perceived as a client error.\r\n\r\nMedia type: `application/json`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "message that will be displayed to the user."
+                    },
+                    "field": {
+                      "type": "string",
+                      "description": "specifies the field in the request that caused the error."
+                    },
+                    "errorId": {
+                      "type": "integer",
+                      "description": "integer identifier of the error."
+                    },
+                    "systemId": {
+                      "type": "string",
+                      "description": "identifier of the component."
+                    },
+                    "originalMessage": {
+                      "type": "string",
+                      "description": "the original error message."
+                    },
+                    "errorStackTrace": {
+                      "type": "string",
+                      "description": "additional data related to the error, structured as key-value pairs."
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "additional data related to the error, structured as key-value pairs.",
+                      "properties": {
+                        "additionalProp1": {
+                          "type": "object"
+                        },
+                        "additionalProp2": {
+                          "type": "object"
+                        },
+                        "additionalProp3": {
+                          "type": "object"
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "identifier of the error."
+                    }
+                  },
+                  "x-examples": {
+                    "Example 1": {
+                      "message": "string",
+                      "field": "string",
+                      "errorId": 0,
+                      "systemId": "string",
+                      "originalMessage": "string",
+                      "errorStackTrace": "string",
+                      "data": {
+                        "additionalProp1": {},
+                        "additionalProp2": {},
+                        "additionalProp3": {}
+                      },
+                      "error": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "400 Bad Request 11": {
+                    "value": {
+                      "message": "Invalid login or password",
+                      "errorId": 11,
+                      "systemId": "core",
+                      "error": "WRONG_LOGIN_OR_PASSWORD_EXCEPTION"
+                    }
+                  },
+                  "400 Bad Request 273": {
+                    "value": {
+                      "message": "You have exceeded maximum number of attempts. Please, try again in 1 minute(s)",
+                      "errorId": 273,
+                      "systemId": "core",
+                      "error": "LOGIN_ATTEMPTS_EXCEEDED"
+                    }
+                  },
+                  "400 Bad Request 8": {
+                    "value": {
+                      "message": "Incorrect code",
+                      "errorId": 8,
+                      "systemId": "core",
+                      "error": "CUSTOMER_VERIFICATION_CODE_INCORRECT"
+                    }
+                  },
+                  "400 Bad Request 53": {
+                    "value": {
+                      "message": "Maximum login attempts exceeded",
+                      "errorId": 53,
+                      "systemId": "core",
+                      "error": "CUSTOMER_EXCEEDED_NUMBER_OF_PIN_ATTEMPTS"
+                    }
+                  },
+                  "400 Bad Request 267": {
+                    "value": {
+                      "message": "Password expired. Please, reset password",
+                      "errorId": 267,
+                      "systemId": "core",
+                      "error": "TEMPORARY_PASSWORD_IS_EXPIRED"
+                    }
+                  },
+                  "400 Bad Request 3": {
+                    "value": {
+                      "message": "Your account has been locked due to security reasons. Please contact our support",
+                      "errorId": 3,
+                      "systemId": "core",
+                      "error": "CUSTOMER_STATUS_INCORRECT"
+                    }
+                  },
+                  "400 Bad Request 422": {
+                    "value": {
+                      "message": "Sorry for inconvenience. We're fixing the issue. If you have urgent questions, contact support",
+                      "field": "residenceStreet",
+                      "errorId": 422,
+                      "systemId": "core",
+                      "error": "NOT_VALID_REQUEST_DATA"
+                    }
+                  },
+                  "400 Bad Request 307": {
+                    "value": {
+                      "message": "The code has expired, please resend code",
+                      "errorId": 307,
+                      "systemId": "core",
+                      "error": "MFA_SESSION_EXPIRED"
+                    }
+                  },
+                  "400 Bad Request 308": {
+                    "value": {
+                      "message": "The code has already been used",
+                      "errorId": 308,
+                      "systemId": "core",
+                      "error": "MFA_CODE_ALREADY_USED"
+                    }
+                  },
+                  "400 Bad Request 429": {
+                    "value": {
+                      "message": "Please wait 30 minutes to sign in or contact our support team via email",
+                      "errorId": 429,
+                      "systemId": "core",
+                      "error": "WAF_LOCK_NOT_IN_LIST"
+                    }
+                  }
+                }
               }
             }
-          },
-          "error": {
-            "type": "string",
-            "description": "identifier of the error."
-          }
-        },
-        "x-examples": {
-          "Example 1": {
-            "message": "string",
-            "field": "string",
-            "errorId": 0,
-            "systemId": "string",
-            "originalMessage": "string",
-            "errorStackTrace": "string",
-            "data": {
-              "additionalProp1": {},
-              "additionalProp2": {},
-              "additionalProp3": {}
-            },
-            "error": "string"
-          }
-        }
-      },
-      "examples": {
-        "400\tBad Request 11": {
-          "value": {
-            "message": "Invalid login or password",
-            "errorId": 11,
-            "systemId": "core",
-            "error": "WRONG_LOGIN_OR_PASSWORD_EXCEPTION"
-          }
-        },
-        "400\tBad Request 273": {
-          "value": {
-            "message": "You have exceeded maximum number of attempts. Please, try again in 1 minute(s)",
-            "errorId": 273,
-            "systemId": "core",
-            "error": "LOGIN_ATTEMPTS_EXCEEDED"
-          }
-        },
-        "400\tBad Request 8": {
-          "value": {
-            "message": "Incorrect code",
-            "errorId": 8,
-            "systemId": "core",
-            "error": "CUSTOMER_VERIFICATION_CODE_INCORRECT"
-          }
-        },
-        "400\tBad Request 53": {
-          "value": {
-            "message": "Maximum login attempts exceeded",
-            "errorId": 53,
-            "systemId": "core",
-            "error": "CUSTOMER_EXCEEDED_NUMBER_OF_PIN_ATTEMPTS"
-          }
-        },
-        "400\tBad Request 267": {
-          "value": {
-            "message": "Password expired. Please, reset password",
-            "errorId": 267,
-            "systemId": "core",
-            "error": "TEMPORARY_PASSWORD_IS_EXPIRED"
-          }
-        },
-        "400\tBad Request 3": {
-          "value": {
-            "message": "Your account has been locked due to security reasons. Please contact our support",
-            "errorId": 3,
-            "systemId": "core",
-            "error": "CUSTOMER_STATUS_INCORRECT"
-          }
-        },
-        "400\tBad Request 422": {
-          "value": {
-            "message": "Sorry for inconvenience. We're fixing the issue. If you have urgent questions, contact support",
-            "field": "residenceStreet",
-            "errorId": 422,
-            "systemId": "core",
-            "error": "NOT_VALID_REQUEST_DATA"
-          }
-        },
-        "400\tBad Request 307": {
-          "value": {
-            "message": "The code has expired, please resend code",
-            "errorId": 307,
-            "systemId": "core",
-            "error": "MFA_SESSION_EXPIRED"
-          }
-        },
-        "400\tBad Request 308": {
-          "value": {
-            "message": "The code has already been used",
-            "errorId": 308,
-            "systemId": "core",
-            "error": "MFA_CODE_ALREADY_USED"
-          }
-        },
-        "400\tBad Request 429": {
-          "value": {
-            "message": "Please wait 30 minutes to sign in or contact our support team via email",
-            "errorId": 429,
-            "systemId": "core",
-            "error": "WAF_LOCK_NOT_IN_LIST"
           }
         }
       }
