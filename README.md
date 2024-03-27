@@ -4,9 +4,9 @@ Vault provides reliable and user-friendly tools to manage your finances. Our API
 
 # 🚀 Get Started Now!
 
-[SignUp](https://vault-bxou.readme.io/reference/signup): Before you begin, make sure you're registered. The registration process is easy and intuitive, giving you access to all functionalities.
+[SignUp](https://github.com/crypterium-com/api-vault/tree/cd6df668a91b07c5bb4ffc9fa7b9656a797c2190/Vault%20API/Signup): Before you begin, make sure you're registered. The registration process is easy and intuitive, giving you access to all functionalities.
 
-[Authentication](https://vault-bxou.readme.io/reference/authorization): For secure access to all API features, get your unique API key. The authentication process is simple and ensures the protection of your data.
+[Authorization](https://github.com/crypterium-com/api-vault/tree/cd6df668a91b07c5bb4ffc9fa7b9656a797c2190/Vault%20API/Authorization): For secure access to all API features, get your unique API key. The authentication process is simple and ensures the protection of your data.
 
 # 🌟 Key Features
 
@@ -22,8 +22,8 @@ Vault provides reliable and user-friendly tools to manage your finances. Our API
 
 To start using the Vault.ist API, familiarize yourself with our documentation, providing detailed information about endpoints, parameters, and example requests.
 
-- [SignUp](https://vault-bxou.readme.io/reference/signup): New User Registration
-- [Authorization](https://vault-bxou.readme.io/reference/authorization): Authentication and SignOut
+- [SignUp]([https://vault-bxou.readme.io/reference/signup](https://github.com/crypterium-com/api-vault/tree/cd6df668a91b07c5bb4ffc9fa7b9656a797c2190/Vault%20API/Signup): New User Registration
+- [Authorization]([https://vault-bxou.readme.io/reference/authorization](https://github.com/crypterium-com/api-vault/tree/cd6df668a91b07c5bb4ffc9fa7b9656a797c2190/Vault%20API/Authorization): Authorization and SignOut
 - [Account Password Operations](https://vault-bxou.readme.io/reference/password-operations): Simplified list of operations
 - [Feature Functionality Management](https://vault-bxou.readme.io/reference/feature-functionality-management) : Simplified list of operations
 - [Wallet](https://vault-bxou.readme.io/reference/wallet): Wallet Management and Financial Operations.
