@@ -11,16 +11,19 @@ User registration involves providing necessary information such as the phone num
 ## Request
 
 ### Headers
-- **X-Merchant-ID**: string *(required)*
-  - Identification of requests from users of a specific partner.
-  - **Default:** `bece038f-2e46-49f4-b25e-89cd38d6dc16`
-- **X-Version**: string *(required)*
-  - Version fingerprint.
-  - **Default:** `1.2`
-- **X-Fingerprint**: string
-  - Device fingerprint. Fingerprint for WEB for Android and iOS can be viewed [here](link_to_fingerprint).
-- **X-Signature**: string
-  - Contains a digital signature generated both on the server-side (backend) and the client-side (frontend). Used for verifying the authenticity of requests.
+>- **X-Merchant-ID**: string *(required)*
+> Identification of requests from users of a specific partner.
+> **Default:** `bece038f-2e46-49f4-b25e-89cd38d6dc16`
+
+>- **X-Version**: string *(required)*
+> Version fingerprint.
+> **Default:** `1.2`
+
+>- **X-Fingerprint**: string
+> Device fingerprint. Fingerprint for WEB for Android and iOS can be viewed [here]([link_to_fingerprint](https://github.com/crypterium-com/api-vault.wiki.git).
+
+>- **X-Signature**: string
+> Contains a digital signature generated both on the server-side (backend) and the client-side (frontend). Used for verifying the authenticity of requests.
 
 
 ```json json_schema
@@ -50,17 +53,14 @@ User registration involves providing necessary information such as the phone num
 
 ### Parameters
 
-- **phone**: string (*Required*)
+>- **phone**: string (*Required*)
+>The phone number needed for registration.
 
-The phone number needed for registration.
-
-- **password**: string (*Required*)
-
-The password required for registration. See password creation rule [here](link_to_rule).
+>- **password**: string (*Required*)
+>The password required for registration. See password creation rule [here](link_to_rule).
   
-- **analyticsCallback**: string 
-
-Optional parameter for transmitting analytics data
+>- **analyticsCallback**: string 
+>Optional parameter for transmitting analytics data
   
 
 
@@ -94,9 +94,8 @@ Indicates that the request was successfully processed.
 - **Media type:** `application/json`
 - **Body:** `application/json`
   
-- **result:** string
-
-Provides information about the outcome of the registration operation.
+>- **result:** string
+>Provides information about the outcome of the registration operation.
   
    **Responses example**
 ```json
@@ -115,40 +114,32 @@ Indicates that the server cannot process the request due to a client error.
   
 - **Body:** `application/json`
   
-- **message:** string
+>- **message:** string
+>Message displayed to the user.
 
-Message displayed to the user.
+>- **field:** string
+>Specifies the field in the request that caused the error.
 
-- **field:** string
+>- **errorId:** integer
+>Identifier of the error.
 
-Specifies the field in the request that caused the error.
+>- **systemId:** string
+>Identifier of the component.
 
-- **errorId:** integer
+>- **originalMessage:** string
+>The original error message.
 
-Identifier of the error.
+>- **errorStackTrace:** string
+>The place where the error occurred in the code.
 
-- **systemId:** string
+>- **data:** object
+>Additional data related to the error, structured as key-value pairs.
+  >- **additionalProp1:** object
+  >- **additionalProp2:** object
+  >- **additionalProp3:** object
 
-Identifier of the component.
-
-- **originalMessage:** string
-
-The original error message.
-
-- **errorStackTrace:** string
-
-The place where the error occurred in the code.
-
-- **data:** object
-
-Additional data related to the error, structured as key-value pairs.
-  - **additionalProp1:** object
-  - **additionalProp2:** object
-  - **additionalProp3:** object
-
-- **error:** string
-
-Identifier of the error.
+>- **error:** string
+>Identifier of the error.
     
 **Responses example**
 
@@ -166,8 +157,8 @@ Identifier of the error.
 <details>
 <summary><strong>403 - Account Duplication (Phone Number Uniqueness Check)</strong></summary>
   
- Errors related to account duplication and phone number uniqueness check.
+Errors related to account duplication and phone number uniqueness check.
  
- If a user attempts to register with a phone number already in the database, they will not receive an error message during the waiting period for SMS confirmation. This is a security measure to prevent unauthorized access to accounts.
+If a user attempts to register with a phone number already in the database, they will not receive an error message during the waiting period for SMS confirmation. This is a security measure to prevent unauthorized access to accounts.
 </details>
 
