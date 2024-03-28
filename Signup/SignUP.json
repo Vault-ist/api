@@ -1,0 +1,1591 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0",
+    "title": "SignUp",
+    "description": "",
+    "termsOfService": "",
+    "contact": {
+      "name": "",
+      "url": "",
+      "email": ""
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.vault.sandbox.testessential.net",
+      "description": "Sandbox"
+    }
+  ],
+  "paths": {
+    "/v2/mobile/signup": {
+      "post": {
+        "summary": "Create Account",
+        "description": "This endpoint is designed for [registering](docs/registration-process.md) a new user in a mobile application or service using a phone number as the primary identifier. User registration involves providing necessary information such as the phone number and chosen password.\n<!-- theme: warning -->\n>When re-registering in the system, it is necessary to use a new phone number that has not been used before\n\nInstructions for using the endpoint are available [here](../docs/create-account.md).\n\n",
+        "operationId": "create-account",
+        "parameters": [
+          {
+            "name": "X-Merchant-ID",
+            "in": "header",
+            "description": "identification of requests from users of a specific partner.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "bece038f-2e46-49f4-b25e-89cd38d6dc16"
+            }
+          },
+          {
+            "name": "X-Version",
+            "in": "header",
+            "description": "version fingerprint.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "1.2"
+            }
+          },
+          {
+            "name": "X-Fingerprint",
+            "in": "header",
+            "description": "device fingerprint. Fingerprint for WEB for Android and iOS can be viewed [here](Api/fingerprint.json).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Signature",
+            "in": "header",
+            "description": "contains a digital signature generated both on the server-side (backend) and the client-side (frontend). It is used for verifying the authenticity of requests.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "\r\n\r\n\r\n\r\n",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "phone": {
+                    "type": "string",
+                    "description": "the phone number that needs to be provided during registration."
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "the password that needs to be provided during registration. The password creation rule is [here](docs/registration-process.md)."
+                  },
+                  "analyticsCallback": {
+                    "type": "string",
+                    "description": "an optional parameter that may be used to convey information for analytics."
+                  }
+                },
+                "required": [
+                  "phone",
+                  "password"
+                ],
+                "x-examples": {
+                  "Example 1": {
+                    "phone": "string",
+                    "password": "string",
+                    "analyticsCallback": "string"
+                  }
+                }
+              },
+              "examples": {
+                "Sign up with phone number": {
+                  "value": {
+                    "phone": "+447871234567",
+                    "password": "1234Qwerty",
+                    "analyticsCallback": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success response\r\n\r\nThe response status code indicates that the request was successfully processed.\r\n\r\nMedia type: `application/json`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string",
+                      "description": " providing information about the outcome of the registration operation."
+                    }
+                  },
+                  "x-examples": {
+                    "Example 1": {
+                      "result": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "200 Success response": {
+                    "value": {
+                      "result": "ok"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400-Bad-Request"
+          },
+          "403": {
+            "description": "**Account duplication (phone number uniqueness check)**\r\n\r\nErrors related to account duplication and phone number uniqueness check are handled as follows: if a user attempts to register a new account using a phone number that already exists in the database, during the waiting period for the SMS confirmation message, they will not receive the message, and the system will not return an error. \r\n\r\nThis is a security measure designed to prevent unauthorized access to accounts. If an existing phone number is detected, the system returns an **ALREADY_REGISTERED** error."
+          }
+        },
+        "security": [
+          {}
+        ],
+        "servers": [
+          {
+            "url": "https://api.vault.sandbox.testessential.net",
+            "description": "Sandbox"
+          }
+        ]
+      }
+    },
+	"/v2/mobile/phone/confirm": {
+    "post": {
+      "tags": [
+        "Verification"
+      ],
+      "summary": "Confirm Phone Number",
+      "description": " This API is employed to confirm the ownership of a provided phone number during the [account creation process](docs/registration-process.md). Users may receive a code through SMS or a similar method, and this code needs to be submitted through this API to verify the associated phone number.\r\n\r\nInstructions for using the endpoint are available [here](../docs/confirm-phone-number.md).\r\n",
+      "operationId": "confirm-phone-number",
+      "parameters": [
+        {
+          "name": "X-Merchant-ID",
+          "in": "header",
+          "description": "identification of requests from users of a specific partner.",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "default": "bece038f-2e46-49f4-b25e-89cd38d6dc16"
+          }
+        }
+      ],
+      "requestBody": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "phone": {
+                  "type": "string",
+                  "description": "telephone number, which must be specified during registration."
+                },
+                "smsCode": {
+                  "type": "string",
+                  "description": "SMS containing the necessary code. In this case, the SMS code is always the same, and it is `1234`."
+                },
+                "fingerprint": {
+                  "type": "string",
+                  "description": "device fingerprint. Fingerprint for WEB for Android and iOS can be viewed [here](Api/fingerprint.json)."
+                }
+              },
+              "required": [
+                "phone",
+                "smsCode"
+              ],
+              "x-examples": {
+                "Example 1": {
+                  "phone": "string",
+                  "smsCode": "string",
+                  "fingerprint": "string"
+                }
+              }
+            },
+            "examples": {
+              "Confirm phone number": {
+                "value": {
+                  "phone": "+447871234567",
+                  "smsCode": "1234",
+                  "fingerprint": "12344444"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Success response\r\n\r\nThe response status code indicates that the request was successfully processed.\r\n\r\nMedia type: `application/json`",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "access_token": {
+                    "type": "string",
+                    "description": "an encrypted key, a short-lived token for accessing a resource."
+                  },
+                  "token_type": {
+                    "type": "string",
+                    "description": "bearer token."
+                  },
+                  "refresh_token": {
+                    "type": "string",
+                    "description": "these are credentials for accessing the API in the absence of a user session."
+                  },
+                  "expires_in": {
+                    "type": "integer",
+                    "description": "token lifetime in seconds."
+                  },
+                  "scope": {
+                    "type": "string",
+                    "description": "token action space, we almost always have a `read write`"
+                  }
+                },
+                "x-examples": {
+                  "Example 1": {
+                    "access_token": "string",
+                    "token_type": "string",
+                    "refresh_token": "string",
+                    "expires_in": 0,
+                    "scope": "string"
+                  }
+                }
+              },
+              "examples": {
+                "200 Success response ": {
+                  "value": {
+                    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4NTU0ZDc0My05ZDExLTQ5YTEtYTMyMy03YmRmOGQ4NDdjMjEiLCJleHAiOjE3MDk3MjQ1NjQsImlhdCI6MTcwOTYzODE2NH0.deZXGfjS7oVprz2XoZseeYa7l8ti8aAJaELBeDDtglI",
+                    "token_type": "bearer",
+                    "refresh_token": "nWfLqFh_TbgHJHOp9XUmZ9_EhZI",
+                    "expires_in": 86399,
+                    "scope": "read write"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "The response status code indicates that the server cannot or will not process the request due to something perceived as a client error.\r\n\r\nMedia type: `application/json`",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "message that will be displayed to the user."
+                  },
+                  "field": {
+                    "type": "string",
+                    "description": "specifies the field in the request that caused the error."
+                  },
+                  "errorId": {
+                    "type": "integer",
+                    "description": "integer identifier of the error."
+                  },
+                  "systemId": {
+                    "type": "string",
+                    "description": "identifier of the component."
+                  },
+                  "originalMessage": {
+                    "type": "string",
+                    "description": "the original error message."
+                  },
+                  "errorStackTrace": {
+                    "type": "string",
+                    "description": "the place where the error appeared in the code."
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "additional data related to the error, structured as key-value pairs.",
+                    "properties": {
+                      "additionalProp1": {
+                        "type": "object"
+                      },
+                      "additionalProp2": {
+                        "type": "object"
+                      },
+                      "additionalProp3": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "error": {
+                    "type": "string",
+                    "description": "identifier of the error."
+                  }
+                },
+                "x-examples": {
+                  "Example 1": {
+                    "message": "string",
+                    "field": "string",
+                    "errorId": 0,
+                    "systemId": "string",
+                    "originalMessage": "string",
+                    "errorStackTrace": "string",
+                    "data": {
+                      "additionalProp1": {},
+                      "additionalProp2": {},
+                      "additionalProp3": {}
+                    },
+                    "error": "string"
+                  }
+                }
+              },
+              "examples": {
+                "400 Bad Request ": {
+                  "value": {
+                    "message": "Incorrect code",
+                    "errorId": 117,
+                    "systemId": "core",
+                    "error": "CUSTOMER_SMS_CODE_INCORRECT"
+                  }
+                },
+                "400 Bad Request 1": {
+                  "value": {
+                    "message": "Phone number is not registered",
+                    "errorId": 2,
+                    "systemId": "core",
+                    "error": "CUSTOMER_NOT_FOUND_EXCEPTION"
+                  }
+                },
+                "400 Bad Request 2": {
+                  "value": {
+                    "message": "Code is expired, please resend code",
+                    "errorId": 118,
+                    "systemId": "core",
+                    "error": "CUSTOMER_SMS_CODE_EXPIRED"
+                  }
+                }
+              }
+            }
+          }
+        }
+     },
+      "security": [
+        {}
+      ],
+      "servers": [
+        {
+          "url": "https://api.vault.sandbox.testessential.net",
+          "description": "Sandbox"
+        }
+      ]
+    }
+  },
+  "/v2/mobile/phone/verify/resend": {
+    "post": {
+      "tags": [
+        "Verification"
+      ],
+      "summary": "Resend Code",
+      "description": "If the initial verification code for a phone number has not been received or has expired, this API allows users to request a new verification code to be sent to the provided phone number. It is a resend mechanism to ensure users can successfully complete the phone verification process.\r\n\r\nInstructions for using the endpoint are available [here](../docs/resend-code.md).\r\n\r\n\r\n",
+      "operationId": "resend-code",
+      "parameters": [
+        {
+          "name": "X-Signature",
+          "in": "header",
+          "description": "contains a digital signature generated both on the server-side (backend) and the client-side (frontend). It is used for verifying the authenticity of requests. The HMAC_SHA256 algorithm is utilized to generate the signature, employing a shared secret key.",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "X-Fingerprint",
+          "in": "header",
+          "description": "indicates whether fingerprint login has been performed in the application. Fingerprint for WEB for Android and iOS can be viewed [here](Api/fingerprint.json).",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "default": "1234444"
+          }
+        },
+        {
+          "name": "X-Merchant-ID",
+          "in": "header",
+          "description": "identification of requests from users of a specific partner.",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "default": "bece038f-2e46-49f4-b25e-89cd38d6dc16"
+          }
+        }
+      ],
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "phone": {
+                  "type": "string",
+                  "description": "the phone number that needs to be provided during registration."
+                }
+              },
+              "required": [
+                "phone"
+              ],
+              "x-examples": {
+                "Example 1": {
+                  "phone": "string"
+                }
+              }
+            },
+            "examples": {
+              "Resend Code": {
+                "value": {
+                  "phone": "+447871234567"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "OK\r\n\r\nThe response status code indicates that the request was successfully processed.\r\n\r\nMedia type: `application/json`",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "result": {
+                    "type": "string",
+                    "description": "response indicating the result of the resend code operation."
+                  }
+                },
+                "x-examples": {
+                  "Example 1": {
+                    "result": "string"
+                  }
+                }
+              },
+              "examples": {
+                "200 OK": {
+                  "value": {
+                    "result": "ok"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "The response status code indicates that the server cannot or will not process the request due to something perceived as a client error.\r\n\r\nMedia type: `application/json`",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "message that will be displayed to the user."
+                  },
+                  "field": {
+                    "type": "string",
+                    "description": "specifies the field in the request that caused the error."
+                  },
+                  "errorId": {
+                    "type": "integer",
+                    "description": "integer identifier of the error."
+                  },
+                  "systemId": {
+                    "type": "string",
+                    "description": "identifier of the component."
+                  },
+                  "originalMessage": {
+                    "type": "string",
+                    "description": "the original error message."
+                  },
+                  "errorStackTrace": {
+                    "type": "string",
+                    "description": "the place where the error appeared in the code."
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "additional data related to the error, structured as key-value pairs.",
+                    "properties": {
+                      "additionalProp1": {
+                        "type": "object"
+                      },
+                      "additionalProp2": {
+                        "type": "object"
+                      },
+                      "additionalProp3": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "error": {
+                    "type": "string",
+                    "description": "identifier of the error."
+                  }
+                },
+                "x-examples": {
+                  "Example 1": {
+                    "message": "string",
+                    "field": "string",
+                    "errorId": 0,
+                    "systemId": "string",
+                    "originalMessage": "string",
+                    "errorStackTrace": "string",
+                    "data": {
+                      "additionalProp1": {},
+                      "additionalProp2": {},
+                      "additionalProp3": {}
+                    },
+                    "error": "string"
+                  }
+                }
+              },
+              "examples": {
+                "400\tBad Request": {
+                  "value": {
+                    "message": "Please wait 10 minutes to sign up",
+                    "errorId": 167,
+                    "systemId": "core",
+                    "error": "RATE_LIMIT_SIGNUP_ATTEMPT"
+                  }
+                },
+                "400\tBad Request 1": {
+                  "value": {
+                    "message": "Phone number is not registered",
+                    "errorId": 2,
+                    "systemId": "core",
+                    "error": "CUSTOMER_NOT_FOUND_EXCEPTION"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "security": [
+        {}
+      ],
+      "servers": [
+        {
+          "url": "https://api.vault.sandbox.testessential.net",
+          "description": "Sandbox"
+        }
+      ]
+    }
+  },
+  "/v2/mobile/email/add": {
+    "put": {
+      "tags": [
+        "Email"
+      ],
+      "summary": "Add Email",
+      "description": "This endpoint is designed for adding a new email address to a user's account. \r\n\r\n<!-- theme: warning  -->\r\n>Changing the email address manually by the user is not available.\r\n>The email address can only be changed through customer support.\r\n\r\nInstructions for using the endpoint are available [here](../docs/add-email.md).\r\n",
+      "operationId": "put-add-email",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "description": "the new email address to be added to the user's account."
+                }
+              },
+              "required": [
+                "email"
+              ]
+            },
+            "examples": {
+              "Add Email": {
+                "value": {
+                  "email": "partner@gmail.com"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "168": {
+          "description": "**The system checks the uniqueness of the email**\r\n\r\nEmail uniqueness verification in the system involves checking whether an email address is already registered. After confirming the email, attempting to register the same email address will result in a message stating that such an address already exists:\r\n",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "message that will be displayed to the user."
+                  },
+                  "errorId": {
+                    "type": "integer",
+                    "description": "integer identifier of the error."
+                  },
+                  "systemId": {
+                    "type": "string",
+                    "description": "identifier of the component."
+                  },
+                  "error": {
+                    "type": "string",
+                    "description": "identifier of the error."
+                  }
+                },
+                "x-examples": {
+                  "Example 1": {
+                    "message": "Email is already registered",
+                    "errorId": 168,
+                    "systemId": "core",
+                    "error": "EMAIL_IS_ALREADY_REGISTERED"
+                  }
+                }
+              },
+              "examples": {
+                "168": {
+                  "value": {
+                    "message": "Email is already registered",
+                    "errorId": 168,
+                    "systemId": "core",
+                    "error": "EMAIL_IS_ALREADY_REGISTERED"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "200": {
+          "description": "Success response\r\n\r\nThe response status code indicates that the email has been successfully added.\r\n\r\nMedia type: `application/json`",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "result": {
+                    "type": "string",
+                    "description": "response indicating the result of the operation."
+                  }
+                },
+                "x-examples": {
+                  "Example 1": {
+                    "result": "string"
+                  }
+                }
+              },
+              "examples": {
+                "200 Success response": {
+                  "value": {
+                    "result": "ok"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "310": {
+          "description": "**The system detects that the email has already been confirmed**\r\n\r\n\r\nThe system detects that the email has already been confirmed\r\nWhen attempting to confirm an email address, the system verifies whether the email has already been confirmed in the past. If the email has been previously confirmed, a message is returned instructing the user to contact support in order to change the email.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "message that will be displayed to the user."
+                  },
+                  "errorId": {
+                    "type": "integer",
+                    "description": "integer identifier of the error."
+                  },
+                  "systemId": {
+                    "type": "string",
+                    "description": "identifier of the component."
+                  },
+                  "error": {
+                    "type": "string",
+                    "description": "identifier of the error."
+                  }
+                },
+                "x-examples": {
+                  "Example 1": {
+                    "message": "Your email has been previously confirmed. Please contact support to change email",
+                    "errorId": 310,
+                    "systemId": "core",
+                    "error": "EMAIL_ALREADY_CONFIRMED"
+                  }
+                }
+              },
+              "examples": {
+                "310": {
+                  "value": {
+                    "message": "Your email has been previously confirmed. Please contact support to change email",
+                    "errorId": 310,
+                    "systemId": "core",
+                    "error": "EMAIL_ALREADY_CONFIRMED"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "The response status code indicates that the server cannot or will not process the request due to something perceived as a client error.\r\n\r\nMedia type: `application/json`\r\n\r\n",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "message that will be displayed to the user."
+                  },
+                  "field": {
+                    "type": "string",
+                    "description": "specifies the field in the request that caused the error."
+                  },
+                  "errorId": {
+                    "type": "integer",
+                    "description": "integer identifier of the error."
+                  },
+                  "systemId": {
+                    "type": "string",
+                    "description": "identifier of the component."
+                  },
+                  "originalMessage": {
+                    "type": "string",
+                    "description": "the original error message."
+                  },
+                  "errorStackTrace": {
+                    "type": "string",
+                    "description": "the place where the error appeared in the code."
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "additional data related to the error, structured as key-value pairs.",
+                    "properties": {
+                      "additionalProp1": {
+                        "type": "object"
+                      },
+                      "additionalProp2": {
+                        "type": "object"
+                      },
+                      "additionalProp3": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "error": {
+                    "type": "string",
+                    "description": "identifier of the error."
+                  }
+                },
+                "x-examples": {
+                  "Example 1": {
+                    "message": "string",
+                    "field": "string",
+                    "errorId": 0,
+                    "systemId": "string",
+                    "originalMessage": "string",
+                    "errorStackTrace": "string",
+                    "data": {
+                      "additionalProp1": {},
+                      "additionalProp2": {},
+                      "additionalProp3": {}
+                    },
+                    "error": "string"
+                  }
+                }
+              },
+              "examples": {
+                "400 Bad Request 168": {
+                  "value": {
+                    "message": "Email is already registered",
+                    "errorId": 168,
+                    "systemId": "core",
+                    "error": "EMAIL_IS_ALREADY_REGISTERED"
+                  }
+                },
+                "400 Bad Request 422": {
+                  "value": {
+                    "message": "Please enter a valid email",
+                    "field": "email",
+                    "errorId": 422,
+                    "systemId": "core",
+                    "error": "NOT_VALID_REQUEST_DATA"
+                  }
+                },
+                "400 Bad Request 310": {
+                  "value": {
+                    "message": "Your email has been previously confirmed. Please contact support to change email",
+                    "errorId": 310,
+                    "systemId": "core",
+                    "error": "EMAIL_ALREADY_CONFIRMED"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "422": {
+          "description": "**The system validates the email format**\r\n\r\nWhen a user submits an email address, the system checks whether it conforms to the standard email format. If the email address provided doesn't meet the required format, the system returns an error message indicating that the email is not valid.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "message that will be displayed to the user."
+                  },
+                  "field": {
+                    "type": "string",
+                    "description": "integer identifier of the error."
+                  },
+                  "errorId": {
+                    "type": "integer",
+                    "description": "integer identifier of the error."
+                  },
+                  "systemId": {
+                    "type": "string",
+                    "description": "identifier of the component."
+                  },
+                  "error": {
+                    "type": "string",
+                    "description": "identifier of the error."
+                  }
+                },
+                "x-examples": {
+                  "Example 1": {
+                    "message": "Please enter a valid email",
+                    "field": "email",
+                    "errorId": 422,
+                    "systemId": "core",
+                    "error": "NOT_VALID_REQUEST_DATA"
+                  }
+                }
+              },
+              "examples": {
+                "422 ": {
+                  "value": {
+                    "message": "Please enter a valid email",
+                    "field": "email",
+                    "errorId": 422,
+                    "systemId": "core",
+                    "error": "NOT_VALID_REQUEST_DATA"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "security": [
+        {
+          "Bearer ": []
+        }
+      ],
+      "servers": [
+        {
+          "url": "https://api.vault.sandbox.testessential.net",
+          "description": "Sandbox"
+        }
+      ]
+    }
+  }
+},
+"/v2/mobile/email/confirm": {
+    "get": {
+      "tags": [
+        "Email"
+      ],
+      "summary": "Confirm Email",
+      "description": "The endpoint is to confirm an email address. \r\n\r\n<!-- theme: warning -->\r\n>The data must be encoded in **base64** format using your frontend",
+      "operationId": "get-v2-mobile-email-confirm",
+      "parameters": [
+        {
+          "name": "email",
+          "in": "query",
+          "description": "the email address to be confirmed.",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "event",
+          "in": "query",
+          "description": "the event related to the email confirmation.",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "token",
+          "in": "query",
+          "description": "the token associated with the email confirmation process. It is sent to the user via email as part of the confirmation process.",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Success response\r\n\r\nThe response status code indicates that the email has been successfully added.\r\n\r\nMedia type: `application/json`",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "result": {
+                    "type": "string",
+                    "description": " indicates the result of the email address confirmation operation."
+                  }
+                },
+                "x-examples": {
+                  "Example 1": {
+                    "result": "string"
+                  }
+                }
+              },
+              "examples": {
+                "200 Success response": {
+                  "value": {
+                    "result": "Email address successfully confirmed"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "The response status code indicates that the server cannot or will not process the request due to something perceived as a client error.\r\n\r\nMedia type: `application/json`",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "message that will be displayed to the user."
+                  },
+                  "field": {
+                    "type": "string",
+                    "description": "specifies the field in the request that caused the error."
+                  },
+                  "errorId": {
+                    "type": "integer",
+                    "description": "integer identifier of the error."
+                  },
+                  "systemId": {
+                    "type": "string",
+                    "description": "identifier of the component."
+                  },
+                  "originalMessage": {
+                    "type": "string",
+                    "description": "the original error message."
+                  },
+                  "errorStackTrace": {
+                    "type": "string",
+                    "description": "the place where the error appeared in the code."
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "additional data related to the error, structured as key-value pairs.",
+                    "properties": {
+                      "additionalProp1": {
+                        "type": "object"
+                      },
+                      "additionalProp2": {
+                        "type": "object"
+                      },
+                      "additionalProp3": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "error": {
+                    "type": "string",
+                    "description": "identifier of the error."
+                  }
+                },
+                "x-examples": {
+                  "Example 1": {
+                    "message": "string",
+                    "field": "string",
+                    "errorId": 0,
+                    "systemId": "string",
+                    "originalMessage": "string",
+                    "errorStackTrace": "string",
+                    "data": {
+                      "additionalProp1": {},
+                      "additionalProp2": {},
+                      "additionalProp3": {}
+                    },
+                    "error": "string"
+                  }
+                }
+              },
+              "examples": {
+                "Example 1": {
+                  "value": {
+                    "message": "string",
+                    "field": "string",
+                    "errorId": 0,
+                    "systemId": "string",
+                    "originalMessage": "string",
+                    "errorStackTrace": "string",
+                    "data": {
+                      "additionalProp1": {},
+                      "additionalProp2": {},
+                      "additionalProp3": {}
+                    },
+                    "error": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "security": [
+        {
+          "Bearer ": []
+        }
+      ],
+      "servers": [
+        {
+          "url": "https://api.vault.sandbox.testessential.net",
+          "description": "Sandbox"
+        }
+      ]
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "Bearer ": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "responses": {
+      "400-Bad-Request": {
+        "description": "The response status code indicates that the server cannot or will not process the request due to something perceived as a client error.\r\n\r\nMedia type: `application/json`\r\n\r\n",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "message that will be displayed to the user."
+                },
+                "field": {
+                  "type": "string",
+                  "description": "specifies the field in the request that caused the error."
+                },
+                "errorId": {
+                  "type": "integer",
+                  "description": "integer identifier of the error."
+                },
+                "systemId": {
+                  "type": "string",
+                  "description": "identifier of the component."
+                },
+                "originalMessage": {
+                  "type": "string",
+                  "description": "the original error message."
+                },
+                "errorStackTrace": {
+                  "type": "string",
+                  "description": "the place where the error appeared in the code."
+                },
+                "data": {
+                  "type": "object",
+                  "description": "additional data related to the error, structured as key-value pairs.",
+                  "properties": {
+                    "additionalProp1": {
+                      "type": "object"
+                    },
+                    "additionalProp2": {
+                      "type": "object"
+                    },
+                    "additionalProp3": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "error": {
+                  "type": "string",
+                  "description": "identifier of the error."
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "message": "string",
+                  "field": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "originalMessage": "string",
+                  "errorStackTrace": "string",
+                  "data": {
+                    "additionalProp1": {},
+                    "additionalProp2": {},
+                    "additionalProp3": {}
+                  },
+                  "error": "string"
+                }
+              }
+            },
+            "examples": {
+              "400 Bad Request": {
+                "value": {
+                  "message": "Registration is prohibited in your country",
+                  "errorId": 0,
+                  "systemId": "core",
+                  "error": "COUNTRY_BLOCKED_FOR_REGISTRATION"
+                }
+              },
+              "400 Bad Request 2": {
+                "value": {
+                  "message": "Please set a valid password",
+                  "field": "password",
+                  "errorId": 422,
+                  "systemId": "core",
+                  "error": "NOT_VALID_REQUEST_DATA"
+                }
+              },
+              "400 Bad Request 3": {
+                "value": {
+                  "message": "Sorry for inconvenience. We're fixing the issue. If you have urgent questions, contact support",
+                  "errorId": 0,
+                  "systemId": "core",
+                  "error": "COMMON"
+                }
+              },
+              "Example 1": {
+                "value": {
+                  "message": "string",
+                  "field": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "originalMessage": "string",
+                  "errorStackTrace": "string",
+                  "data": {
+                    "additionalProp1": {},
+                    "additionalProp2": {},
+                    "additionalProp3": {}
+                  },
+                  "error": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "424-Failed-Dependency": {
+        "description": "The response status code indicates that the entered user number is already registered.\n\nMedia type: `application/json`",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "errorId": {
+                  "type": "integer"
+                },
+                "systemId": {
+                  "type": "string"
+                },
+                "sessionId": {
+                  "type": "string"
+                },
+                "factors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "default": {
+                        "type": "boolean",
+                        "default": true
+                      }
+                    }
+                  }
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "message": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "sessionId": "string",
+                  "factors": [
+                    {
+                      "id": "string",
+                      "type": "EMAIL",
+                      "value": "string",
+                      "default": true
+                    }
+                  ]
+                }
+              }
+            },
+            "examples": {
+              "424 Failed Dependency": {
+                "value": {
+                  "message": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "sessionId": "string",
+                  "factors": [
+                    {
+                      "id": "string",
+                      "type": "EMAIL",
+                      "value": "string",
+                      "default": true
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "401-Unauthorized": {
+        "description": "The response status code indicates that it cannot be completed due to missing or invalid authentication data.\r\n\r\nMedia type: `application/json`",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "message that will be displayed to the user."
+                },
+                "field": {
+                  "type": "string"
+                },
+                "errorId": {
+                  "type": "integer",
+                  "description": "integer identifier of the error."
+                },
+                "systemId": {
+                  "type": "string",
+                  "description": "identifier of the component"
+                },
+                "originalMessage": {
+                  "type": "string"
+                },
+                "errorStackTrace": {
+                  "type": "string",
+                  "description": "the place where the error appeared in the code."
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "additionalProp1": {
+                      "type": "object"
+                    },
+                    "additionalProp2": {
+                      "type": "object"
+                    },
+                    "additionalProp3": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "error": {
+                  "type": "string",
+                  "description": "identifier of the error."
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "message": "string",
+                  "field": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "originalMessage": "string",
+                  "errorStackTrace": "string",
+                  "data": {
+                    "additionalProp1": {},
+                    "additionalProp2": {},
+                    "additionalProp3": {}
+                  },
+                  "error": "string"
+                }
+              }
+            },
+            "examples": {
+              "401 Unauthorized": {
+                "value": {
+                  "message": "string",
+                  "field": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "originalMessage": "string",
+                  "errorStackTrace": "string",
+                  "data": {
+                    "additionalProp1": {},
+                    "additionalProp2": {},
+                    "additionalProp3": {}
+                  },
+                  "error": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "115-Phone-number-is-already-registered": {
+        "description": "The response status code indicates that the entered user number is already registered.\r\n\r\nMedia type: `application/json`",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "result": "string"
+                }
+              }
+            },
+            "examples": {
+              "115 Phone number is already registered": {
+                "value": {
+                  "result": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "404-Not-Found": {
+        "description": "The response status code indicates that the requested page was not found on the server.\r\n\r\nMedia type: `application/json`",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "message that will be displayed to the user."
+                },
+                "field": {
+                  "type": "string"
+                },
+                "errorId": {
+                  "type": "integer",
+                  "description": "integer identifier of the error."
+                },
+                "systemId": {
+                  "type": "string",
+                  "description": "identifier of the component"
+                },
+                "originalMessage": {
+                  "type": "string"
+                },
+                "errorStackTrace": {
+                  "type": "string",
+                  "description": "the place where the error appeared in the code."
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "additionalProp1": {
+                      "type": "object"
+                    },
+                    "additionalProp2": {
+                      "type": "object"
+                    },
+                    "additionalProp3": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "error": {
+                  "type": "string",
+                  "description": "identifier of the error."
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "message": "string",
+                  "field": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "originalMessage": "string",
+                  "errorStackTrace": "string",
+                  "data": {
+                    "additionalProp1": {},
+                    "additionalProp2": {},
+                    "additionalProp3": {}
+                  },
+                  "error": "string"
+                }
+              }
+            },
+            "examples": {
+              "404 Not Found": {
+                "value": {
+                  "message": "string",
+                  "field": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "originalMessage": "string",
+                  "errorStackTrace": "string",
+                  "data": {
+                    "additionalProp1": {},
+                    "additionalProp2": {},
+                    "additionalProp3": {}
+                  },
+                  "error": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "500-Internal-Server-Error": {
+        "description": "The response status code indicates that the server cannot process the request correctly.\n\nMedia type: `application/json`",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            },
+            "examples": {
+              "500 Internal Server Error": {
+                "value": {}
+              }
+            }
+          }
+        }
+      },
+      "403-Forbidden": {
+        "description": "The response status code returned to the client by the server when access to the specified resource is restricted.\r\n\r\nMedia type: `application/json`",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            },
+            "examples": {
+              "403 Forbidden": {
+                "value": {}
+              }
+            }
+          }
+        }
+      },
+      "422-Unprocessable-Entity": {
+        "description": "The response status code indicates that the entered user number is already registered.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "errorId": {
+                  "type": "integer"
+                },
+                "systemId": {
+                  "type": "string"
+                },
+                "sessionId": {
+                  "type": "string"
+                },
+                "factors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "default": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "message": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "sessionId": "string",
+                  "factors": [
+                    {
+                      "id": "string",
+                      "type": "EMAIL",
+                      "value": "string",
+                      "default": true
+                    }
+                  ]
+                }
+              }
+            },
+            "examples": {
+              "424 Failed Dependency": {
+                "value": {
+                  "message": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "sessionId": "string",
+                  "factors": [
+                    {
+                      "id": "string",
+                      "type": "EMAIL",
+                      "value": "string",
+                      "default": true
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {}
+  ]
+  }
+
