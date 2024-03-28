@@ -54,7 +54,7 @@ curl --request PUT \
 <details>
 <summary><strong>200 - Success Response</strong></summary>
   
-The response status code indicates that the email has been successfully added.
+The response status code indicates that the request was successfully processed.
   
 **Media type:** `application/json`
   
@@ -72,9 +72,9 @@ The response status code indicates that the email has been successfully added.
 
 
 <details>
-<summary><strong>400 - Client Error</strong></summary>
+<summary><strong>400 - Bad Request</strong></summary>
 
-Indicates that the server cannot process the request due to a client error.
+The response status code indicates that the requested page was not found on the server.
   
 **Media type:** `application/json`
   
