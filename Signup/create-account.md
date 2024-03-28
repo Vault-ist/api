@@ -27,23 +27,27 @@ User registration involves providing necessary information such as the phone num
   - Contains a digital signature generated both on the server-side (backend) and the client-side (frontend). Used for verifying the authenticity of requests.
 
 
-```json json_schema
+```json 
 {
-  "type": "object",
-  "required": ["X-Merchant-ID", "X-Version"],
-  "properties": {
-    "X-Merchant-ID": {
-      "type": "string",
-      "required": true,
-      "description": "identification of requests from users of a specific partner.",
-      "default": "bece038f-2e46-49f4-b25e-89cd38d6dc16"
-    },
-    "X-Version": {
-      "type": "string",
-      "required": true,
-      "description": "version fingerprint.",
-      "default": "1.2"
-    }
+  "X-Merchant-ID": {
+    "type": "string",
+    "required": true,
+    "description": "Identification of requests from users of a specific partner.",
+    "default": "bece038f-2e46-49f4-b25e-89cd38d6dc16"
+  },
+  "X-Version": {
+    "type": "string",
+    "required": true,
+    "description": "Version fingerprint.",
+    "default": "1.2"
+  },
+  "X-Fingerprint": {
+    "type": "string",
+    "description": "Device fingerprint. Fingerprint for WEB for Android and iOS can be viewed [here](https://github.com/crypterium-com/api-vault.wiki.git)."
+  },
+  "X-Signature": {
+    "type": "string",
+    "description": "Contains a digital signature generated both on the server-side (backend) and the client-side (frontend). Used for verifying the authenticity of requests."
   }
 }
 ```
