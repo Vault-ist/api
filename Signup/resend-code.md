@@ -97,9 +97,9 @@ The response status code indicates that the request was successfully processed.
 
 
 <details>
-<summary><strong>400 - Client Error</strong></summary>
+<summary><strong>400 - Bad Request</strong></summary>
 
-The response status code indicates that the server cannot or will not process the request due to something perceived as a client error.
+The response status code indicates that the requested page was not found on the server.
   
 - **Media type:** `application/json`
   
