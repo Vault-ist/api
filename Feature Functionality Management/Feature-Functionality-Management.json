@@ -1,0 +1,712 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0",
+    "title": "Feature Functionality Management",
+    "description": "<h2>Overview</h2>\n\nThe `Feature Functionality Management` section is designed to enable users to inquire about available operations. \n\nThis API endpoint provides users with a catalog listing the operations they can perform. When a user requests this endpoint, they receive a list detailing the available operations accessible to them. "
+  },
+  "servers": [
+    {
+      "url": "https://api.vault.sandbox.testessential.net",
+      "description": "Sandbox"
+    }
+  ],
+  "paths": {
+    "/v2/catalog/operations": {
+      "get": {
+        "summary": "Feature Functionality Management",
+        "description": "This endpoint is designed to retrieve a simplified list of operations from the catalog. The catalog of operations may include various actions available for execution within the system.",
+        "operationId": "FFM",
+        "requestBody": {
+          "content": {}
+        },
+        "responses": {
+          "200": {
+            "description": "OK\r\n\r\nMedia type: `application/json`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "the name of the operation. All available operations in the Vault can be viewed [here](docs/Operations-and-Constraints.md).",
+                        "example": "PAYIN_CARD"
+                      },
+                      "constraint": {
+                        "type": "string",
+                        "description": "constraints or requirements associated with performing the operation. Can be operation`NONE`,`DISABLED` and `MAINTENANCE`\r\n\r\n- `NONE`: Indicates that there are no specific constraints or requirements associated with the operation. The operation is allowed without any additional conditions.\r\n- `DISABLED`: Indicates that the operation is currently disabled or not allowed. Users attempting this operation may be restricted. \r\n- `MAINTENANCE`: Indicates that the operation is under maintenance, and it may not be available for execution during this period. Users are advised to wait until maintenance is complete."
+                      },
+                      "kycLevelPermissibleList": {
+                        "type": "array",
+                        "description": " [KYC levels](Api/KYC.yaml) for which this operation is permissible.",
+                        "items": {
+                          "type": "string",
+                          "example": "NONE"
+                        }
+                      },
+                      "supportedVersion": {
+                        "type": "string",
+                        "description": "the version of the supported operation.\r\n\r\n**Soft Update**:\r\n\r\n- `Description`: This type of update is only related to functional features and is not mandatory for all users.\r\n- `When the check occurs`: The check occurs when accessing a specific function.\r\n- `How the check is performed`: If the version of the feature on the client is less than the required one, using this feature becomes impossible.\r\n- `Actions upon check`:\r\n   1. If the feature is isolated, a modal window appears with a proposal to update the application.\r\n   2. If the feature is not isolated (for example, screens with tabs for features), instead of the feature's starting screen, a screen appears with a message about the need to update."
+                      }
+                    }
+                  },
+                  "x-examples": {
+                    "Example 1": [
+                      {
+                        "name": "PAYIN_ADVCASH",
+                        "merchantId": "string",
+                        "constraint": "NONE",
+                        "kycLevelPermissibleList": [
+                          "NONE"
+                        ],
+                        "currencyLimit": [
+                          "string"
+                        ],
+                        "urlPatterns": [
+                          "string"
+                        ],
+                        "previewUrlPatterns": [
+                          "string"
+                        ],
+                        "supportedVersion": "string"
+                      }
+                    ]
+                  }
+                },
+                "examples": {
+                  "200 OK 2": {
+                    "value": {
+                      "name": "PAYOUT_CRYPTO",
+                      "constraint": "NONE",
+                      "kycLevelPermissibleList": [
+                        "KYC_0"
+                      ],
+                      "currencyLimit": [
+                        "BCH",
+                        "OMG",
+                        "DAI",
+                        "CRPT",
+                        "DAO",
+                        "BTC",
+                        "MKR",
+                        "MAPS",
+                        "BAT",
+                        "ETH",
+                        "LTC",
+                        "USDC",
+                        "BUSD",
+                        "REP",
+                        "EVER",
+                        "QASH",
+                        "MATIC",
+                        "QLINDO",
+                        "CHO",
+                        "USDT",
+                        "DASH",
+                        "UNI",
+                        "GLEEC",
+                        "XRP",
+                        "LINK",
+                        "ZRX"
+                      ],
+                      "urlPatterns": [
+                        "/v1/wallet/send",
+                        "/v1/wallet/send/fee/*"
+                      ],
+                      "previewUrlPatterns": [
+                        "/v1/wallet/send/fee/\\b[a-zA-Z]+\\b"
+                      ],
+                      "supportedVersion": "1.0"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The response status code indicates that the server cannot or will not process the request due to something perceived as a client error.\r\n\r\nMedia type: `application/json`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "message that will be displayed to the user."
+                    },
+                    "field": {
+                      "type": "string",
+                      "description": "integer identifier of the error."
+                    },
+                    "errorId": {
+                      "type": "integer",
+                      "description": "integer identifier of the error."
+                    },
+                    "systemId": {
+                      "type": "string",
+                      "description": "identifier of the component."
+                    },
+                    "originalMessage": {
+                      "type": "string",
+                      "description": "the original error message."
+                    },
+                    "errorStackTrace": {
+                      "type": "string",
+                      "description": "the place where the error appeared in the code."
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "additional data related to the error, structured as key-value pairs.",
+                      "properties": {
+                        "additionalProp1": {
+                          "type": "object"
+                        },
+                        "additionalProp2": {
+                          "type": "object"
+                        },
+                        "additionalProp3": {
+                          "type": "object"
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "identifier of the error."
+                    }
+                  },
+                  "x-examples": {
+                    "Example 1": {
+                      "message": "string",
+                      "field": "string",
+                      "errorId": 0,
+                      "systemId": "string",
+                      "originalMessage": "string",
+                      "errorStackTrace": "string",
+                      "data": {
+                        "additionalProp1": {},
+                        "additionalProp2": {},
+                        "additionalProp3": {}
+                      },
+                      "error": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization: Bearer": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "https://api.vault.sandbox.testessential.net",
+            "description": "Sandbox"
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "Authorization: Bearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "responses": {
+      "400-Bad-Request": {
+        "description": "The response status code indicates that the server cannot or will not process the request due to something perceived as a client error.\r\n\r\nMedia type: `application/json`",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "message that will be displayed to the user."
+                },
+                "field": {
+                  "type": "string"
+                },
+                "errorId": {
+                  "type": "integer",
+                  "description": "integer identifier of the error."
+                },
+                "systemId": {
+                  "type": "string",
+                  "description": "identifier of the component"
+                },
+                "originalMessage": {
+                  "type": "string"
+                },
+                "errorStackTrace": {
+                  "type": "string",
+                  "description": "the place where the error appeared in the code."
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "additionalProp1": {
+                      "type": "object"
+                    },
+                    "additionalProp2": {
+                      "type": "object"
+                    },
+                    "additionalProp3": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "error": {
+                  "type": "string",
+                  "description": "identifier of the error."
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "message": "string",
+                  "field": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "originalMessage": "string",
+                  "errorStackTrace": "string",
+                  "data": {
+                    "additionalProp1": {},
+                    "additionalProp2": {},
+                    "additionalProp3": {}
+                  },
+                  "error": "string"
+                }
+              }
+            },
+            "examples": {
+              "400 Bad Request": {
+                "value": {
+                  "message": "string",
+                  "field": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "originalMessage": "string",
+                  "errorStackTrace": "string",
+                  "data": {
+                    "additionalProp1": {},
+                    "additionalProp2": {},
+                    "additionalProp3": {}
+                  },
+                  "error": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "424-Failed-Dependency": {
+        "description": "The response status code indicates that the entered user number is already registered.\n\nMedia type: `application/json`",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "errorId": {
+                  "type": "integer"
+                },
+                "systemId": {
+                  "type": "string"
+                },
+                "sessionId": {
+                  "type": "string"
+                },
+                "factors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "default": {
+                        "type": "boolean",
+                        "default": true
+                      }
+                    }
+                  }
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "message": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "sessionId": "string",
+                  "factors": [
+                    {
+                      "id": "string",
+                      "type": "EMAIL",
+                      "value": "string",
+                      "default": true
+                    }
+                  ]
+                }
+              }
+            },
+            "examples": {
+              "424 Failed Dependency": {
+                "value": {
+                  "message": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "sessionId": "string",
+                  "factors": [
+                    {
+                      "id": "string",
+                      "type": "EMAIL",
+                      "value": "string",
+                      "default": true
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "401-Unauthorized": {
+        "description": "The response status code indicates that it cannot be completed due to missing or invalid authentication data.\r\n\r\nMedia type: `application/json`",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "message that will be displayed to the user."
+                },
+                "field": {
+                  "type": "string"
+                },
+                "errorId": {
+                  "type": "integer",
+                  "description": "integer identifier of the error."
+                },
+                "systemId": {
+                  "type": "string",
+                  "description": "identifier of the component"
+                },
+                "originalMessage": {
+                  "type": "string"
+                },
+                "errorStackTrace": {
+                  "type": "string",
+                  "description": "the place where the error appeared in the code."
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "additionalProp1": {
+                      "type": "object"
+                    },
+                    "additionalProp2": {
+                      "type": "object"
+                    },
+                    "additionalProp3": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "error": {
+                  "type": "string",
+                  "description": "identifier of the error."
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "message": "string",
+                  "field": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "originalMessage": "string",
+                  "errorStackTrace": "string",
+                  "data": {
+                    "additionalProp1": {},
+                    "additionalProp2": {},
+                    "additionalProp3": {}
+                  },
+                  "error": "string"
+                }
+              }
+            },
+            "examples": {
+              "401 Unauthorized": {
+                "value": {
+                  "message": "string",
+                  "field": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "originalMessage": "string",
+                  "errorStackTrace": "string",
+                  "data": {
+                    "additionalProp1": {},
+                    "additionalProp2": {},
+                    "additionalProp3": {}
+                  },
+                  "error": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "115-Phone-number-is-already-registered": {
+        "description": "The response status code indicates that the entered user number is already registered.\r\n\r\nMedia type: `*/*`",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "result": "string"
+                }
+              }
+            },
+            "examples": {
+              "115 Phone number is already registered": {
+                "value": {
+                  "result": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "404-Not-Found": {
+        "description": "The response status code indicates that the requested page was not found on the server.\r\n\r\nMedia type: `application/json`",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "message that will be displayed to the user."
+                },
+                "field": {
+                  "type": "string"
+                },
+                "errorId": {
+                  "type": "integer",
+                  "description": "integer identifier of the error."
+                },
+                "systemId": {
+                  "type": "string",
+                  "description": "identifier of the component"
+                },
+                "originalMessage": {
+                  "type": "string"
+                },
+                "errorStackTrace": {
+                  "type": "string",
+                  "description": "the place where the error appeared in the code."
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "additionalProp1": {
+                      "type": "object"
+                    },
+                    "additionalProp2": {
+                      "type": "object"
+                    },
+                    "additionalProp3": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "error": {
+                  "type": "string",
+                  "description": "identifier of the error."
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "message": "string",
+                  "field": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "originalMessage": "string",
+                  "errorStackTrace": "string",
+                  "data": {
+                    "additionalProp1": {},
+                    "additionalProp2": {},
+                    "additionalProp3": {}
+                  },
+                  "error": "string"
+                }
+              }
+            },
+            "examples": {
+              "404 Not Found": {
+                "value": {
+                  "message": "string",
+                  "field": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "originalMessage": "string",
+                  "errorStackTrace": "string",
+                  "data": {
+                    "additionalProp1": {},
+                    "additionalProp2": {},
+                    "additionalProp3": {}
+                  },
+                  "error": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "500-Internal-Server-Error": {
+        "description": "The response status code indicates, indicates that the server cannot process the request correctly.\n\nMedia type: `application/json`",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            },
+            "examples": {
+              "500 Internal Server Error": {
+                "value": {}
+              }
+            }
+          }
+        }
+      },
+      "403-Forbidden": {
+        "description": "The response status code returned to the client by the server when access to the specified resource is restricted.\r\n\r\nMedia type: `application/json`",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            },
+            "examples": {
+              "403 Forbidden": {
+                "value": {}
+              }
+            }
+          }
+        }
+      },
+      "422-Unprocessable-Entity": {
+        "description": "The response status code indicates that the entered user number is already registered.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "errorId": {
+                  "type": "integer"
+                },
+                "systemId": {
+                  "type": "string"
+                },
+                "sessionId": {
+                  "type": "string"
+                },
+                "factors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "default": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "message": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "sessionId": "string",
+                  "factors": [
+                    {
+                      "id": "string",
+                      "type": "EMAIL",
+                      "value": "string",
+                      "default": true
+                    }
+                  ]
+                }
+              }
+            },
+            "examples": {
+              "424 Failed Dependency": {
+                "value": {
+                  "message": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "sessionId": "string",
+                  "factors": [
+                    {
+                      "id": "string",
+                      "type": "EMAIL",
+                      "value": "string",
+                      "default": true
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "Authorization: Bearer": []
+    }
+  ]
+}
