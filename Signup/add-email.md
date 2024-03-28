@@ -76,7 +76,7 @@ The response status code indicates that the email has been successfully added.
 
 Indicates that the server cannot process the request due to a client error.
   
-- **Media type:** `application/json`
+**Media type:** `application/json`
   
   
 
