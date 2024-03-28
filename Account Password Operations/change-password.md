@@ -4,9 +4,6 @@
 
 The endpoint is designed for [changing the password](https://github.com/crypterium-com/api-vault/wiki/Password-Change-Process) of a user on a mobile device. When a client sends a request to change the password using this method, they should provide the current password and the new password.
 
-> ❗️ When re-registering in the system, it is necessary to use a new phone number that has not been used before.
-
-User registration involves providing necessary information such as the phone number and chosen password.
 
 ## Request
 
