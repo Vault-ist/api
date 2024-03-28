@@ -54,7 +54,7 @@ User registration involves providing necessary information such as the phone num
 
 ### Body
 
-- **Media Type:** `application/json`
+**Media Type:** `application/json`
 
 ### Parameters
 
@@ -107,10 +107,10 @@ Indicates that the request was successfully processed.
 - **Media type:** `application/json`
 - **Body:** `application/json`
   
->- **result:** string
->Provides information about the outcome of the registration operation.
+- **result:** string
+  - Provides information about the outcome of the registration operation.
   
-   **Responses example**
+**Responses example**
 ```json
 {
   "result": "ok"
