@@ -1,47 +1,36 @@
-# Confirm Phone Number
+# Add Email
 
-`POST` **/v2/mobile/phone/confirm**
+`PUT` **/v2/mobile/email/add**
 
-This API is employed to confirm the ownership of a provided phone number during the [account creation process](https://github.com/crypterium-com/api-vault/wiki/Registration-Process). Users may receive a code through SMS or a similar method, and this code needs to be submitted through this API to verify the associated phone number.
+This endpoint is designed for adding a new email address to a user's account.
 
+> 🚧 Changing the email address manually by the user is not available.
+> 
+> The email address can only be changed through customer support.
 
 ## Request
-
-### Headers
-
-- **X-Merchant-ID**: string *(required)*
-  - Identification of requests from users of a specific partner.
-  - **Default:** `bece038f-2e46-49f4-b25e-89cd38d6dc16`
-
-```json 
-{
-  "X-Merchant-ID": {
-    "type": "string",
-    "required": true,
-    "description": "Identification of requests from users of a specific partner.",
-    "default": "bece038f-2e46-49f4-b25e-89cd38d6dc16"
-  }
-}
-```
 
 ### Body
 
 **Media Type:** `application/json`
 
-### Parameters
+- **email**: string *(required)*
+  - The new email address to be added to the user's account.
 
-- **phone**: string *(Required)*
-  - telephone number, which must be specified during registration.
-- **smsCode**: string *(Required)*
-  - SMS containing the necessary code. In this case, the SMS code is always the same, and it is `1234`.
-- **fingerprint**: string
-  - device fingerprint. Fingerprint for WEB for Android and iOS can be viewed [here](https://github.com/crypterium-com/api-vault/wiki/Digital-signature-verification-and-fingerprint).
+```json 
+{
+  "email": {
+    "type": "string",
+    "description": "The new email address to be added to the user's account.",
+    "required": true
+  }
+}
+```
+### **Example body**
   
 ```json
 {
-  "phone": "+447871234567",
-  "smsCode": "1234",
-  "fingerprint": "12344444"
+  "email": "partner@gmail.com"
 }
 ```
 
@@ -50,16 +39,13 @@ This API is employed to confirm the ownership of a provided phone number during 
 At the time of sending the request, the curl command should be as follows:
 
 ```curl cURL
-curl --request POST \
-  --url https://crpt-backend-main-service.sandbox.testessential.net/v2/mobile/phone/confirm \
+curl --request PUT \
+  --url https://crpt-backend-main-service.sandbox.testessential.net/v2/mobile/email/add \
   --header 'Accept: application/json' \
-  --header 'Authorization: Basic ZG9jOnNlY3JldA==' \
+  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4NTU0ZDc0My05ZDExLTQ5YTEtYTMyMy03YmRmOGQ4NDdjMjEiLCJleHAiOjE3MDk3MjQ1NjQsImlhdCI6MTcwOTYzODE2NH0.deZXGfjS7oVprz2XoZseeYa7l8ti8aAJaELBeDDtglI' \
   --header 'Content-Type: application/json' \
-  --header 'X-Merchant-ID: bece038f-2e46-49f4-b25e-89cd38d6dc16' \
   --data '{
-  "phone": "+447871234567",
-  "smsCode": "1234",
-  "fingerprint": "12344444"
+  "email": "partner@gmail.com"
 }'
 ```
 
@@ -68,39 +54,22 @@ curl --request POST \
 <details>
 <summary><strong>200 - Success Response</strong></summary>
   
-Indicates that the request was successfully processed.
+The response status code indicates that the email has been successfully added.
   
 **Media type:** `application/json`
   
-- **access_token**: string
-  - An encrypted key, a short-lived token for accessing a resource.
-
-- **token_type**: string
-  - Bearer token.
-
-- **refresh_token**: string
-  - These are credentials for accessing the API in the absence of a user session.
-
-- **expires_in**: integer
-  - Token lifetime in seconds.
-
-- **scope**: string
-  - Token action space. We almost always have read and write permissions.
+- **result**: string
+  - Response indicating the result of the operation.
 
   
    **Responses example**
 ```json
 {
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYTdiM2UzNi1jNTQ4LTQ2NjMtYWNiZi00YjAwOWMyYTExZjgiLCJleHAiOjE3MDk4MjE1MjIsImlhdCI6MTcwOTczNTEyMn0.Syx7vEDUcgEQ-pNJSjFQPh35wia3Qy-2u_GyFCSiXgk",
-  "token_type": "bearer",
-  "refresh_token": "_aUCain3dCLOF4NzSvQbXchMuns",
-  "expires_in": 86399,
-  "scope": "read write"
+  "result": "ok"
 }
 ```
 </details>
 
----
 
 <details>
 <summary><strong>400 - Client Error</strong></summary>
@@ -146,6 +115,113 @@ Indicates that the server cannot process the request due to a client error.
   "error": "COMMON",
   "errorId": 0,
   "message": "Sorry for inconvenience. We're fixing the issue. If you have urgent questions, contact support",
+  "systemId": "core"
+}
+```
+
+</details>
+
+<details>
+<summary><strong>168 - The system checks the uniqueness of the email</strong></summary>
+
+
+Email uniqueness verification in the system involves checking whether an email address is already registered. After confirming the email, attempting to register the same email address will result in a message stating that such an address already exists.
+  
+**Media type:** `application/json`
+  
+
+- **message**: string
+  - Message that will be displayed to the user.
+  
+- **errorId**: integer
+  - Integer identifier of the error.
+  
+- **systemId**: string
+  - Identifier of the component.
+  
+- **error**: string
+  - Identifier of the error.
+
+    
+**Responses example**
+
+```json
+{
+  "error": "EMAIL_IS_ALREADY_REGISTERED",
+  "errorId": 168,
+  "message": "Email is already registered",
+  "systemId": "core"
+}
+```
+
+</details>
+
+
+<details>
+<summary><strong>310 - The system detects that the email has already been confirmed</strong></summary>
+
+
+The system detects that the email has already been confirmed When attempting to confirm an email address, the system verifies whether the email has already been confirmed in the past. If the email has been previously confirmed, a message is returned instructing the user to contact support in order to change the email.
+  
+**Media type:** `application/json`
+  
+
+- **message**: string
+  - Message that will be displayed to the user.
+  
+- **errorId**: integer
+  - Integer identifier of the error.
+  
+- **systemId**: string
+  - Identifier of the component.
+  
+- **error**: string
+  - Identifier of the error.
+
+    
+**Responses example**
+
+```json
+{
+  "error": "EMAIL_ALREADY_CONFIRMED",
+  "errorId": 310,
+  "message": "Your email has been previously confirmed. Please contact support to change email",
+  "systemId": "core"
+}
+```
+
+</details>
+
+<details>
+<summary><strong>422 - The system validates the email format</strong></summary>
+
+
+When a user submits an email address, the system checks whether it conforms to the standard email format. If the email address provided doesn't meet the required format, the system returns an error message indicating that the email is not valid.
+  
+**Media type:** `application/json`
+  
+
+- **message**: string
+  - Message that will be displayed to the user.
+  
+- **errorId**: integer
+  - Integer identifier of the error.
+  
+- **systemId**: string
+  - Identifier of the component.
+  
+- **error**: string
+  - Identifier of the error.
+
+    
+**Responses example**
+
+```json
+{
+  "error": "NOT_VALID_REQUEST_DATA",
+  "field": "email",
+  "errorId": 422,
+  "message": "Please enter a valid email",
   "systemId": "core"
 }
 ```
