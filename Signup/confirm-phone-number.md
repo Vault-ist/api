@@ -15,15 +15,11 @@ This API is employed to confirm the ownership of a provided phone number during 
 
 ```json json_schema
 {
-  "type": "object",
-  "required": ["X-Merchant-ID"],
-  "properties": {
-    "X-Merchant-ID": {
-      "type": "string",
-      "required": true,
-      "description": "identification of requests from users of a specific partner.",
-      "default": "bece038f-2e46-49f4-b25e-89cd38d6dc16"
-    }
+  "X-Merchant-ID": {
+    "type": "string",
+    "required": true,
+    "description": "Identification of requests from users of a specific partner.",
+    "default": "bece038f-2e46-49f4-b25e-89cd38d6dc16"
   }
 }
 ```
