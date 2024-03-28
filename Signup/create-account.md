@@ -11,19 +11,20 @@ User registration involves providing necessary information such as the phone num
 ## Request
 
 ### Headers
->- **X-Merchant-ID**: string *(required)*
-> Identification of requests from users of a specific partner.
-> **Default:** `bece038f-2e46-49f4-b25e-89cd38d6dc16`
 
->- **X-Version**: string *(required)*
-> Version fingerprint.
-> **Default:** `1.2`
+- **X-Merchant-ID**: string *(required)*
+  - Identification of requests from users of a specific partner.
+  - **Default:** `bece038f-2e46-49f4-b25e-89cd38d6dc16`
 
->- **X-Fingerprint**: string
-> Device fingerprint. Fingerprint for WEB for Android and iOS can be viewed [here]([link_to_fingerprint](https://github.com/crypterium-com/api-vault.wiki.git).
+- **X-Version**: string *(required)*
+  - Version fingerprint.
+  - **Default:** `1.2`
 
->- **X-Signature**: string
-> Contains a digital signature generated both on the server-side (backend) and the client-side (frontend). Used for verifying the authenticity of requests.
+- **X-Fingerprint**: string
+  - Device fingerprint. Fingerprint for WEB for Android and iOS can be viewed [here](https://github.com/crypterium-com/api-vault.wiki.git).
+
+- **X-Signature**: string
+  - Contains a digital signature generated both on the server-side (backend) and the client-side (frontend). Used for verifying the authenticity of requests.
 
 
 ```json json_schema
@@ -53,14 +54,14 @@ User registration involves providing necessary information such as the phone num
 
 ### Parameters
 
->- **phone**: string (*Required*)
->The phone number needed for registration.
+- **phone**: string (*Required*)
+  - The phone number needed for registration.
 
->- **password**: string (*Required*)
->The password required for registration. See password creation rule [here](link_to_rule).
-  
->- **analyticsCallback**: string 
->Optional parameter for transmitting analytics data
+- **password**: string (*Required*)
+  - The password required for registration. See password creation rule [here](link_to_rule).
+
+- **analyticsCallback**: string 
+  - Optional parameter for transmitting analytics data
   
 
 
@@ -110,36 +111,36 @@ Indicates that the request was successfully processed.
 
 Indicates that the server cannot process the request due to a client error.
   
-- **Media type:** `application/json`
+**Media type:** `application/json`
+
   
-- **Body:** `application/json`
+- **message:** string
+  - Message displayed to the user.
   
->- **message:** string
->Message displayed to the user.
+- **field:** string
+  - Specifies the field in the request that caused the error.
+  
+- **errorId:** integer
+  - Identifier of the error.
+  
+- **systemId:** string
+  - Identifier of the component.
+  
+- **originalMessage:** string
+  - The original error message.
+  
+- **errorStackTrace:** string
+  - The place where the error occurred in the code.
+  
+- **data:** object
+  - Additional data related to the error, structured as key-value pairs.
+    - **additionalProp1:** object
+    - **additionalProp2:** object
+    - **additionalProp3:** object
+  
+- **error:** string
+  - Identifier of the error.
 
->- **field:** string
->Specifies the field in the request that caused the error.
-
->- **errorId:** integer
->Identifier of the error.
-
->- **systemId:** string
->Identifier of the component.
-
->- **originalMessage:** string
->The original error message.
-
->- **errorStackTrace:** string
->The place where the error occurred in the code.
-
->- **data:** object
->Additional data related to the error, structured as key-value pairs.
-  >- **additionalProp1:** object
-  >- **additionalProp2:** object
-  >- **additionalProp3:** object
-
->- **error:** string
->Identifier of the error.
     
 **Responses example**
 
