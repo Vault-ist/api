@@ -94,7 +94,7 @@ The response status code indicates that the request was successfully processed.
 ```
 </details>
 
----
+
 
 <details>
 <summary><strong>400 - Client Error</strong></summary>
