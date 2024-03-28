@@ -1,6 +1,6 @@
-# SignIn
+# SignOut
 
-`POST` **/oauth/token**
+`POST` **/signout**
 
 The endpoint is intended for user [logout](https://github.com/crypterium-com/api-vault.wiki.git) and invalidation of access tokens. When calling this endpoint, the server should deauthorize the user and invalidate the current access token.
 
@@ -15,12 +15,14 @@ The endpoint is intended for user [logout](https://github.com/crypterium-com/api
 
 ```json
 {
-"type": "object",
-"properties": {
-"X-DeviceIdD": {
-"type": "string",
-"description": "This header is used for device identification during the sign-out process."
-}}}
+  "type": "object",
+  "properties": {
+    "X-DeviceIdD": {
+      "type": "string",
+      "description": "This header is used for device identification during the sign-out process."
+    }
+  }
+}
 ```
 
 #### **Request Sample: cURL**
