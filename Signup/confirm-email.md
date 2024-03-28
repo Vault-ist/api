@@ -24,7 +24,7 @@ The endpoint is to confirm an email address.
 
 The response status code indicates that the email has been successfully added.
 
-- **Media type:** `application/json`
+**Media type:** `application/json`
 
 - **result:** string
   - Provides information about the outcome of the registration operation.
