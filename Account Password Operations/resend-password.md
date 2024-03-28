@@ -1,4 +1,4 @@
-# Change Password
+# Resend Password
 
 `POST` **/v2/mobile/password/reset**
 
@@ -153,10 +153,3 @@ The response status code indicates that the requested page was not found on the 
 
 </details>
 
-<details>
-<summary><strong>403 - Account Duplication (Phone Number Uniqueness Check)</strong></summary>
-  
-Errors related to account duplication and phone number uniqueness check.
- 
-If a user attempts to register with a phone number already in the database, they will not receive an error message during the waiting period for SMS confirmation. This is a security measure to prevent unauthorized access to accounts.
-</details>
