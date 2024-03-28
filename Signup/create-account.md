@@ -104,8 +104,7 @@ curl --request POST \
   
 Indicates that the request was successfully processed.
   
-- **Media type:** `application/json`
-- **Body:** `application/json`
+**Media type:** `application/json`
   
 - **result:** string
   - Provides information about the outcome of the registration operation.
