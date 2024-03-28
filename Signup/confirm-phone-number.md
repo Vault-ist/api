@@ -30,7 +30,7 @@ This API is employed to confirm the ownership of a provided phone number during 
 
 ### Body
 
-- **Media Type:** `application/json`
+**Media Type:** `application/json`
 
 ### Parameters
 
