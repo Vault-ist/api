@@ -36,6 +36,8 @@ This API is employed to confirm the ownership of a provided phone number during 
   - SMS containing the necessary code. In this case, the SMS code is always the same, and it is `1234`.
 - **fingerprint**: string
   - device fingerprint. Fingerprint for WEB for Android and iOS can be viewed [here](https://github.com/crypterium-com/api-vault/wiki/Digital-signature-verification-and-fingerprint).
+
+### **Example body**
   
 ```json
 {
