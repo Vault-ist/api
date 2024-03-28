@@ -67,7 +67,15 @@ User registration involves providing necessary information such as the phone num
 - **analyticsCallback**: string 
   - Optional parameter for transmitting analytics data
   
+### **Example body**
 
+```json 
+{
+  "phone": "+447871234567",
+  "password": "1234Qwerty",
+  "analyticsCallback": "string"
+}
+```
 
 #### **Request Sample: cURL**
 
