@@ -17,6 +17,8 @@ The endpoint is to confirm an email address.
 - **token**: string *(required)*
   - Description: The token associated with the email confirmation process. It is sent to the user via email as part of the confirmation process.
 
+## Responses
+
 <details>
 <summary><span style="color: green;">200 - Success Response</span></summary>
 
@@ -24,10 +26,16 @@ The response status code indicates that the email has been successfully added.
 
 - **Media type:** `application/json`
 
-- **Body:** `application/json`
+- **result:** string
+  - Provides information about the outcome of the registration operation.
 
-  - **result:** string
-    - **Description:** Indicates the result of the email address confirmation operation.
+**Responses example**
+```json
+{
+  "result": "ok"
+}
+```
+</details>
 
 </details>
 
@@ -37,36 +45,46 @@ The response status code indicates that the email has been successfully added.
 
 The response status code indicates that the server cannot or will not process the request due to something perceived as a client error.
 
-- **Media type:** `application/json`
+**Media type:** `application/json`
 
-- **Body:** `application/json`
 
-  - **message:** string
-    - **Description:** Message that will be displayed to the user.
+- **message:** string
+  - Message displayed to the user.
 
-  - **field:** string
-    - **Description:** Specifies the field in the request that caused the error.
+- **field:** string
+  - Specifies the field in the request that caused the error.
 
-  - **errorId:** integer
-    - **Description:** Integer identifier of the error.
+- **errorId:** integer
+  - Identifier of the error.
 
-  - **systemId:** string
-    - **Description:** Identifier of the component.
+- **systemId:** string
+  - Identifier of the component.
 
-  - **originalMessage:** string
-    - **Description:** The original error message.
+- **originalMessage:** string
+  - The original error message.
 
-  - **errorStackTrace:** string
-    - **Description:** The place where the error appeared in the code.
+- **errorStackTrace:** string
+  - The place where the error occurred in the code.
 
-  - **data:** object
-    - **Description:** Additional data related to the error, structured as key-value pairs.
-      - **additionalProp1:** object
-      - **additionalProp2:** object
-      - **additionalProp3:** object
-        
-  - **error:** string
-    - **Description:** Identifier of the error.
+- **data:** object
+  - Additional data related to the error, structured as key-value pairs.
+    - **additionalProp1:** object
+    - **additionalProp2:** object
+    - **additionalProp3:** object
+
+- **error:** string
+  - Identifier of the error.
+
+**Responses example**
+
+```json
+{
+  "error": "COMMON",
+  "errorId": 0,
+  "message": "Sorry for inconvenience. We're fixing the issue. If you have urgent questions, contact support",
+  "systemId": "core"
+}
+```
 
 </details>
 
