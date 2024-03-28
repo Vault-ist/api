@@ -1,6 +1,6 @@
-# Confirm Phone Number
+# SignIn
 
-`POST` **/v2/mobile/phone/confirm**
+`POST` **/oauth/token**
 
 The endpoint is designed for user authentication and obtaining an OAuth access token. Specifically tailored for the client credentials grant type, it generates a token upon successful authentication, enabling secure requests to resources.
 
@@ -27,7 +27,7 @@ The endpoint is designed for user authentication and obtaining an OAuth access t
 
 ### Body
 
-**Content Type**: application/x-www-form-urlencoded
+**Content Type**: `application/x-www-form-urlencoded`
 
 ### Parameters
 
@@ -35,7 +35,7 @@ The endpoint is designed for user authentication and obtaining an OAuth access t
     - Password required for registration.
   - **number**: string
     - Phone number transmitted during token acquisition.
-  - **grant_type**: string (required)
+  - **grant_type**: string (**required**)
     - Authorization type: `mobile_phone`
 
 ### **Example Body**
