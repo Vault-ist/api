@@ -20,9 +20,9 @@ The endpoint is to confirm an email address.
 ## Responses
 
 <details>
-<summary><span style="color: green;">200 - Success Response</span></summary>
+<summary><span style="color: green;">200 - OK</span></summary>
 
-The response status code indicates that the email has been successfully added.
+The response status code indicates that the request was successfully processed.
 
 **Media type:** `application/json`
 
@@ -40,10 +40,9 @@ The response status code indicates that the email has been successfully added.
 </details>
 
 <details>
-<summary><span style="color: red;">400 - Error Response</span></summary>
+<summary><strong>400 - Bad Request</strong></summary>
 
-
-The response status code indicates that the server cannot or will not process the request due to something perceived as a client error.
+The response status code indicates that the requested page was not found on the server.
 
 **Media type:** `application/json`
 
