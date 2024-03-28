@@ -12,7 +12,7 @@ User registration involves providing necessary information such as the phone num
 
 ### Body
 
-- **Media Type:** `application/json`
+**Media Type:** `application/json`
 
 ### Parameters
 
