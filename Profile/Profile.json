@@ -1,0 +1,981 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0",
+    "title": "Profile",
+    "description": "<h2>Overview</h2>\n\nThe `Profile` section is designed for managing customer profiles within the system. Each method in this section performs a specific operation related to the customer profile, including retrieving information, changing passwords. These operations provide clients with convenient and secure means to control their accounts and ensure compliance with regulatory requirements.\n"
+  },
+  "servers": [
+    {
+      "url": "https://api.vault.sandbox.testessential.net",
+      "description": "Sandbox"
+    }
+  ],
+  "paths": {
+    "/v2/customer/profile": {
+      "get": {
+        "summary": "Get Current Customer Profile",
+        "description": "The endpoint is designed to retrieve the current customer profile. This request returns information about the customer, including their identification details, contact information, consent statuses, Know Your Customer (KYC) level, loyalty level, balance, additional account parameters, and other relevant details.\r\n",
+        "operationId": "customer-profile",
+        "responses": {
+          "200": {
+            "description": "OK\r\n\r\nIf a user's field with information is not filled (meaning it has a NULL value), then in the response to a GET request to the /v2/customer/profile endpoint, the value of this field will not be included in the response body.\r\n\r\nMedia type: `application/json`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "description": "customer's email address."
+                    },
+                    "confirmedEmail": {
+                      "type": "boolean",
+                      "description": "confirmation status of the email.",
+                      "default": true
+                    },
+                    "phone": {
+                      "type": "string",
+                      "description": "customer's phone number."
+                    },
+                    "firstName": {
+                      "type": "string",
+                      "description": "customer's first name."
+                    },
+                    "lastName": {
+                      "type": "string",
+                      "description": "customer's last name."
+                    },
+                    "primaryCurrency": {
+                      "type": "string",
+                      "description": "main currency."
+                    },
+                    "residenceCountry": {
+                      "type": "string",
+                      "description": "country of residence for the customer."
+                    },
+                    "residenceState": {
+                      "type": "string",
+                      "description": "customer's residence state."
+                    },
+                    "residenceCity": {
+                      "type": "string",
+                      "description": "customer's residence city."
+                    },
+                    "residenceStreet": {
+                      "type": "string",
+                      "description": "customer's residence street."
+                    },
+                    "residenceZipCode": {
+                      "type": "string",
+                      "description": "customer's residence postal code."
+                    },
+                    "pushEnabled": {
+                      "type": "boolean",
+                      "description": "whether push notifications are enabled.",
+                      "default": true
+                    },
+                    "enabled2FA": {
+                      "type": "boolean",
+                      "description": "whether two-factor authentication is enabled.",
+                      "default": true
+                    },
+                    "dateOfBirth": {
+                      "type": "string",
+                      "description": "date of birth for the customer.",
+                      "format": "date-time",
+                      "pattern": "YYYY-MM-DDThh:mm:ss<TZDSuffix>"
+                    },
+                    "veroId": {
+                      "type": "string",
+                      "description": "customer's identifier in the Vero system."
+                    }
+                  },
+                  "x-examples": {
+                    "Example 1": {
+                      "customerId": 0,
+                      "email": "string",
+                      "confirmedEmail": true,
+                      "phone": "string",
+                      "firstName": "string",
+                      "lastName": "string",
+                      "gender": true,
+                      "citizenshipCountry": "string",
+                      "citizenshipState": "string",
+                      "invitationCode": "string",
+                      "isTestMode": true,
+                      "primaryCurrency": "string",
+                      "isLegalFunds": true,
+                      "identificationDocument": "string",
+                      "identificationDocumentNumber": "string",
+                      "identificationDocumentFirstName": "string",
+                      "identificationDocumentLastName": "string",
+                      "identificationDocumentMiddleName": "string",
+                      "identificationDocumentGender": true,
+                      "isAgreePrivacyCheck": true,
+                      "registrationAddress": "string",
+                      "identificationDocumentUrls": [
+                        "string"
+                      ],
+                      "identificationDocumentSelfieUrls": [
+                        "string"
+                      ],
+                      "registrationDocumentUrls": [
+                        "string"
+                      ],
+                      "country": "string",
+                      "referralCode": "string",
+                      "residenceCountry": "string",
+                      "residenceState": "string",
+                      "residenceCity": "string",
+                      "residenceStreet": "string",
+                      "residenceZipCode": "string",
+                      "completedKycLevel": "NONE",
+                      "completedKycLevels": [
+                        "NONE"
+                      ],
+                      "loyaltyLevel": "string",
+                      "wasInvited": true,
+                      "earned": 0,
+                      "maximumAvailable": 0,
+                      "referralLink": "string",
+                      "payoutVersion": 0,
+                      "pushEnabled": true,
+                      "acceptedGramTermsAndConditions": true,
+                      "enabled2FA": true,
+                      "payinIsBlocked": true,
+                      "locale": "string",
+                      "timezone": "string",
+                      "badgeNames": [
+                        "string"
+                      ],
+                      "taxId": "string",
+                      "taxCountry": "string",
+                      "taxIdValid": true,
+                      "dateOfBirth": "2024-01-10T20:04:38.256Z",
+                      "transaction2FaMethod": "SMS",
+                      "activePushDevicesExists": true,
+                      "acceptChoiseTerms": true,
+                      "acceptInsuranceTerms": true,
+                      "acceptDualCurrencyTerms": true,
+                      "veroId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                      "isTemporaryPassword": true
+                    }
+                  }
+                },
+                "examples": {
+                  "200 OK": {
+                    "value": {
+                      "email": "test@gmail.com",
+                      "confirmedEmail": false,
+                      "phone": "447871236669",
+                      "firstName": "Anna",
+                      "lastName": "Schmidt",
+                      "primaryCurrency": "EUR",
+                      "residenceCountry": "DE",
+                      "residenceCity": "Munich",
+                      "residenceStreet": "Examplestrasse",
+                      "residenceZipCode": "12345",
+                      "pushEnabled": true,
+                      "enabled2FA": false,
+                      "dateOfBirth": "1990-05-20T00:00:00",
+                      "veroId": "423db895-a10d-4114-a457-ad9291ea34cb"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400-Bad-Request"
+          }
+        },
+        "security": [
+          {
+            "Authorization: Bearer": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "https://api.vault.sandbox.testessential.net",
+            "description": "Sandbox"
+          }
+        ]
+      },
+      "patch": {
+        "summary": "Update customer profile",
+        "description": "This endpoint is used to update the profile information of a customer.",
+        "operationId": "patch-v1-customer-profile",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstName": {
+                    "type": "string",
+                    "description": "a string representing the customer's first name."
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "description": "a string representing the customer's last name."
+                  },
+                  "primaryCurrency": {
+                    "type": "string",
+                    "description": "a string representing the customer's primary currency."
+                  },
+                  "residenceCountry": {
+                    "type": "string",
+                    "description": "a string representing the customer's residence country."
+                  },
+                  "residenceCity": {
+                    "type": "string",
+                    "description": "a string representing the customer's residence city."
+                  },
+                  "residenceStreet": {
+                    "type": "string",
+                    "description": "a string representing the customer's residence street."
+                  },
+                  "residenceZipCode": {
+                    "type": "string",
+                    "description": "a string representing the customer's residence zip code."
+                  },
+                  "dateOfBirth": {
+                    "type": "string",
+                    "description": "a string representing the customer's date of birth.",
+                    "pattern": "2024-02-09T10:55:39.799Z"
+                  }
+                },
+                "x-examples": {
+                  "Example 1": {
+                    "firstName": "string",
+                    "lastName": "string",
+                    "primaryCurrency": "string",
+                    "residenceCountry": "GTF",
+                    "residenceCity": "9YdPbu yA9-aZGsjXSzIjxckt/e0OYjkO2ZZ.01VVmsHK0",
+                    "residenceStreet": "RdE6Cjy7klO4KWnqHqlhTXUN6maQ.Es",
+                    "residenceZipCode": "qbcptlbU3IYSSmatQQAdB9_g8hAezjchu6Y.X,aOkt,ak",
+                    "dateOfBirth": "2024-03-25T08:54:29.647Z"
+                  }
+                }
+              },
+              "examples": {
+                "Example 1": {
+                  "value": {
+                    "firstName": "Anna",
+                    "lastName": "Schmidt",
+                    "primaryCurrency": "EUR",
+                    "residenceCountry": "DEU",
+                    "residenceCity": "Munich",
+                    "residenceStreet": "Examplestrasse",
+                    "residenceZipCode": "12345",
+                    "dateOfBirth": "1990-05-20T00:00:00.000Z"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "The server successfully processed the client's request and returned a positive result."
+          },
+          "400": {
+            "description": "The response status code indicates that the server cannot or will not process the request due to something perceived as a client error.\r\n\r\nMedia type: `application/json`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "message that will be displayed to the user."
+                    },
+                    "field": {
+                      "type": "string",
+                      "description": "specifies the field in the request that caused the error."
+                    },
+                    "errorId": {
+                      "type": "integer",
+                      "description": "integer identifier of the error."
+                    },
+                    "systemId": {
+                      "type": "string",
+                      "description": "identifier of the component."
+                    },
+                    "originalMessage": {
+                      "type": "string",
+                      "description": "the original error message."
+                    },
+                    "errorStackTrace": {
+                      "type": "string",
+                      "description": "the place where the error appeared in the code."
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "additional data related to the error, structured as key-value pairs.",
+                      "properties": {
+                        "additionalProp1": {
+                          "type": "object"
+                        },
+                        "additionalProp2": {
+                          "type": "object"
+                        },
+                        "additionalProp3": {
+                          "type": "object"
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "identifier of the error."
+                    }
+                  },
+                  "x-examples": {
+                    "Example 1": {
+                      "message": "string",
+                      "field": "string",
+                      "errorId": 0,
+                      "systemId": "string",
+                      "originalMessage": "string",
+                      "errorStackTrace": "string",
+                      "data": {
+                        "additionalProp1": {},
+                        "additionalProp2": {},
+                        "additionalProp3": {}
+                      },
+                      "error": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization: Bearer": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "https://api.vault.sandbox.testessential.net",
+            "description": "Sandbox"
+          }
+        ]
+      }
+    },
+	"/v1/customer/device/push": {
+    "put": {
+      "summary": "Update Status of Push Notifications",
+      "description": "This endpoint is used to enable or disable push notifications on a specific device. It is generated by the user when toggling the push notification settings within the application. \r\n\r\nAdditionally, it is used after receiving permission for push notifications in iOS (system popup).",
+      "operationId": "put-v1-customer-device-push",
+      "parameters": [
+        {
+          "name": "User-Agent",
+          "in": "header",
+          "description": "user identifier making the request.",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "default": "vault/4.0(508) dart/3.2 (dart:io) ios/17.3.1; iphone 9da12fa6-716c-4cdc-a24c"
+          }
+        }
+      ],
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "state": {
+                  "type": "string",
+                  "description": "Indicates the desired state of push notifications.\r\n\r\nAllowed values:\r\n\r\n- `ENABLED`: In this state, push notifications are allowed on the device.\r\n- `DISABLED`: In this state, push notifications are disabled on the device."
+                },
+                "deviceToken": {
+                  "type": "string",
+                  "description": "a unique identifier for the device."
+                },
+                "deviceId": {
+                  "type": "string",
+                  "description": "identifier for the specific device."
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "state": "ENABLED",
+                  "deviceToken": "string",
+                  "deviceId": "string"
+                }
+              }
+            },
+            "examples": {
+              "Update Status of Push Notifications": {
+                "value": {
+                  "state": "ENABLED",
+                  "deviceToken": "abc123xyz456",
+                  "deviceId": "device123"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Success response\r\n\r\nThe server successfully processed the client's request and returned a positive result.\r\n\r\nMedia type: `*/*`",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "result": {
+                    "type": "string",
+                    "description": "a string indicating the result of the operation."
+                  }
+                },
+                "x-examples": {
+                  "Example 1": {
+                    "result": "string"
+                  }
+                }
+              },
+              "examples": {
+                "200 Success response": {
+                  "value": {
+                    "result": "Push notifications successfully enabled for the device."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "The response status code indicates that the requested page was not found on the server.\r\n\r\nMedia type: `application/json`",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "message that will be displayed to the user."
+                  },
+                  "field": {
+                    "type": "string",
+                    "description": "specifies the field in the request that caused the error."
+                  },
+                  "errorId": {
+                    "type": "integer",
+                    "description": "integer identifier of the error."
+                  },
+                  "systemId": {
+                    "type": "string",
+                    "description": "identifier of the component."
+                  },
+                  "originalMessage": {
+                    "type": "string",
+                    "description": "the original error message."
+                  },
+                  "errorStackTrace": {
+                    "type": "string",
+                    "description": "the place where the error appeared in the code."
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "additional data related to the error, structured as key-value pairs.",
+                    "properties": {
+                      "additionalProp1": {
+                        "type": "object"
+                      },
+                      "additionalProp2": {
+                        "type": "object"
+                      },
+                      "additionalProp3": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "error": {
+                    "type": "string",
+                    "description": "identifier of the error."
+                  }
+                },
+                "x-examples": {
+                  "Example 1": {
+                    "message": "string",
+                    "field": "string",
+                    "errorId": 0,
+                    "systemId": "string",
+                    "originalMessage": "string",
+                    "errorStackTrace": "string",
+                    "data": {
+                      "additionalProp1": {},
+                      "additionalProp2": {},
+                      "additionalProp3": {}
+                    },
+                    "error": "string"
+                  }
+                }
+              },
+              "examples": {
+                "400 Bad Request ": {
+                  "value": {
+                    "error": "COMMON",
+                    "errorId": 0,
+                    "message": "Sorry for inconvenience. We're fixing the issue. If you have urgent questions, contact support",
+                    "systemId": "core"
+                  }
+                },
+                "400 Bad Request 422": {
+                  "value": {
+                    "error": "NOT_VALID_REQUEST_DATA",
+                    "field": "password",
+                    "errorId": 422,
+                    "message": "Sorry for inconvenience. We're fixing the issue. If you have urgent questions, contact support",
+                    "systemId": "core"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "security": [
+        {
+          "Authorization: Bearer": []
+        }
+      ],
+      "servers": [
+        {
+          "url": "https://api.vault.sandbox.testessential.net",
+          "description": "Sandbox"
+        }
+      ]
+    }
+  },
+  "/v2/mobile/email/verify/resend": {
+    "post": {
+      "summary": "Resend Email",
+      "description": "This endpoint is designed for resending a verification email as part of the email verification process.",
+      "operationId": "post-v2-mobile-email-verify-resend",
+      "responses": {
+        "200": {
+          "description": "OK\r\n\r\nThe response status code indicates successful re-sending of the email to the mailbox.\r\n\r\nMedia type: `application/json`",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "result": {
+                    "type": "string",
+                    "description": "response indicating the result of the resend email operation."
+                  }
+                }
+              },
+              "examples": {
+                "200 OK": {
+                  "value": {
+                    "result": "ok"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "The response status code indicates that the requested page was not found on the server.\r\n\r\nMedia type: `application/json`",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "message that will be displayed to the user."
+                  },
+                  "field": {
+                    "type": "string",
+                    "description": "specifies the field in the request that caused the error."
+                  },
+                  "errorId": {
+                    "type": "integer",
+                    "description": "integer identifier of the error."
+                  },
+                  "systemId": {
+                    "type": "string",
+                    "description": "identifier of the component."
+                  },
+                  "originalMessage": {
+                    "type": "string",
+                    "description": "the original error message."
+                  },
+                  "errorStackTrace": {
+                    "type": "string",
+                    "description": "the place where the error appeared in the code."
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "additional data related to the error, structured as key-value pairs.",
+                    "properties": {
+                      "additionalProp1": {
+                        "type": "object"
+                      },
+                      "additionalProp2": {
+                        "type": "object"
+                      },
+                      "additionalProp3": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "error": {
+                    "type": "string",
+                    "description": "identifier of the error."
+                  }
+                },
+                "examples": {
+                  "400 Bad Request ": {
+                    "value": {
+                      "error": "COMMON",
+                      "errorId": 0,
+                      "message": "Sorry for inconvenience. We're fixing the issue. If you have urgent questions, contact support",
+                      "systemId": "core"
+                    }
+                  },
+                  "400 Bad Request 422": {
+                    "value": {
+                      "error": "NOT_VALID_REQUEST_DATA",
+                      "field": "password",
+                      "errorId": 422,
+                      "message": "Sorry for inconvenience. We're fixing the issue. If you have urgent questions, contact support",
+                      "systemId": "core"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "security": [
+        {
+          "Authorization: Bearer": []
+        }
+      ],
+      "servers": [
+        {
+          "url": "https://api.vault.sandbox.testessential.net",
+          "description": "Sandbox"
+        }
+      ]
+    },
+	"/v1/customer/device/push": {
+    "put": {
+      "summary": "Update Status of Push Notifications",
+      "description": "This endpoint is used to enable or disable push notifications on a specific device. It is generated by the user when toggling the push notification settings within the application. \r\n\r\nAdditionally, it is used after receiving permission for push notifications in iOS (system popup).",
+      "operationId": "put-v1-customer-device-push",
+      "parameters": [
+        {
+          "name": "User-Agent",
+          "in": "header",
+          "description": "user identifier making the request.",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "default": "vault/4.0(508) dart/3.2 (dart:io) ios/17.3.1; iphone 9da12fa6-716c-4cdc-a24c"
+          }
+        }
+      ],
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "state": {
+                  "type": "string",
+                  "description": "Indicates the desired state of push notifications.\r\n\r\nAllowed values:\r\n\r\n- `ENABLED`: In this state, push notifications are allowed on the device.\r\n- `DISABLED`: In this state, push notifications are disabled on the device."
+                },
+                "deviceToken": {
+                  "type": "string",
+                  "description": "a unique identifier for the device."
+                },
+                "deviceId": {
+                  "type": "string",
+                  "description": "identifier for the specific device."
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "state": "ENABLED",
+                  "deviceToken": "string",
+                  "deviceId": "string"
+                }
+              }
+            },
+            "examples": {
+              "Update Status of Push Notifications": {
+                "value": {
+                  "state": "ENABLED",
+                  "deviceToken": "abc123xyz456",
+                  "deviceId": "device123"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Success response\r\n\r\nThe server successfully processed the client's request and returned a positive result.\r\n\r\nMedia type: `*/*`",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "result": {
+                    "type": "string",
+                    "description": "a string indicating the result of the operation."
+                  }
+                },
+                "x-examples": {
+                  "Example 1": {
+                    "result": "string"
+                  }
+                }
+              },
+              "examples": {
+                "200 Success response": {
+                  "value": {
+                    "result": "Push notifications successfully enabled for the device."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "The response status code indicates that the requested page was not found on the server.\r\n\r\nMedia type: `application/json`",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "message that will be displayed to the user."
+                  },
+                  "field": {
+                    "type": "string",
+                    "description": "specifies the field in the request that caused the error."
+                  },
+                  "errorId": {
+                    "type": "integer",
+                    "description": "integer identifier of the error."
+                  },
+                  "systemId": {
+                    "type": "string",
+                    "description": "identifier of the component."
+                  },
+                  "originalMessage": {
+                    "type": "string",
+                    "description": "the original error message."
+                  },
+                  "errorStackTrace": {
+                    "type": "string",
+                    "description": "the place where the error appeared in the code."
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "additional data related to the error, structured as key-value pairs.",
+                    "properties": {
+                      "additionalProp1": {
+                        "type": "object"
+                      },
+                      "additionalProp2": {
+                        "type": "object"
+                      },
+                      "additionalProp3": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "error": {
+                    "type": "string",
+                    "description": "identifier of the error."
+                  }
+                },
+                "x-examples": {
+                  "Example 1": {
+                    "message": "string",
+                    "field": "string",
+                    "errorId": 0,
+                    "systemId": "string",
+                    "originalMessage": "string",
+                    "errorStackTrace": "string",
+                    "data": {
+                      "additionalProp1": {},
+                      "additionalProp2": {},
+                      "additionalProp3": {}
+                    },
+                    "error": "string"
+                  }
+                }
+              },
+              "examples": {
+                "400 Bad Request ": {
+                  "value": {
+                    "error": "COMMON",
+                    "errorId": 0,
+                    "message": "Sorry for inconvenience. We're fixing the issue. If you have urgent questions, contact support",
+                    "systemId": "core"
+                  }
+                },
+                "400 Bad Request 422": {
+                  "value": {
+                    "error": "NOT_VALID_REQUEST_DATA",
+                    "field": "password",
+                    "errorId": 422,
+                    "message": "Sorry for inconvenience. We're fixing the issue. If you have urgent questions, contact support",
+                    "systemId": "core"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "security": [
+        {
+          "Authorization: Bearer": []
+        }
+      ],
+      "servers": [
+        {
+          "url": "https://api.vault.sandbox.testessential.net",
+          "description": "Sandbox"
+        }
+      ]
+    }
+  },
+  "/v2/mobile/email/verify/resend": {
+    "post": {
+      "summary": "Resend Email",
+      "description": "This endpoint is designed for resending a verification email as part of the email verification process.",
+      "operationId": "post-v2-mobile-email-verify-resend",
+      "responses": {
+        "200": {
+          "description": "OK\r\n\r\nThe response status code indicates successful re-sending of the email to the mailbox.\r\n\r\nMedia type: `application/json`",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "result": {
+                    "type": "string",
+                    "description": "response indicating the result of the resend email operation."
+                  }
+                }
+              },
+              "examples": {
+                "200 OK": {
+                  "value": {
+                    "result": "ok"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "The response status code indicates that the requested page was not found on the server.\r\n\r\nMedia type: `application/json`",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "message that will be displayed to the user."
+                  },
+                  "field": {
+                    "type": "string",
+                    "description": "specifies the field in the request that caused the error."
+                  },
+                  "errorId": {
+                    "type": "integer",
+                    "description": "integer identifier of the error."
+                  },
+                  "systemId": {
+                    "type": "string",
+                    "description": "identifier of the component."
+                  },
+                  "originalMessage": {
+                    "type": "string",
+                    "description": "the original error message."
+                  },
+                  "errorStackTrace": {
+                    "type": "string",
+                    "description": "the place where the error appeared in the code."
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "additional data related to the error, structured as key-value pairs.",
+                    "properties": {
+                      "additionalProp1": {
+                        "type": "object"
+                      },
+                      "additionalProp2": {
+                        "type": "object"
+                      },
+                      "additionalProp3": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "error": {
+                    "type": "string",
+                    "description": "identifier of the error."
+                  }
+                },
+                "examples": {
+                  "400 Bad Request ": {
+                    "value": {
+                      "error": "COMMON",
+                      "errorId": 0,
+                      "message": "Sorry for inconvenience. We're fixing the issue. If you have urgent questions, contact support",
+                      "systemId": "core"
+                    }
+                  },
+                  "400 Bad Request 422": {
+                    "value": {
+                      "error": "NOT_VALID_REQUEST_DATA",
+                      "field": "password",
+                      "errorId": 422,
+                      "message": "Sorry for inconvenience. We're fixing the issue. If you have urgent questions, contact support",
+                      "systemId": "core"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "security": [
+        {
+          "Authorization: Bearer": []
+        }
+      ],
+      "servers": [
+        {
+          "url": "https://api.vault.sandbox.testessential.net",
+          "description": "Sandbox"
+        }
+      ]
+    }
+  }
+}
+}
+}
