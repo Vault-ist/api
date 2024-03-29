@@ -14,69 +14,55 @@ If a user's field with information is not filled (meaning it has a NULL value), 
 **Media type:** `application/json`
 
 
-- **email**
-  - Type: string
-  - Description: Customer's email address.
+- **email**: string
+  - Customer's email address.
   
-- **confirmedEmail**
-  - Type: boolean
-  - Description: Confirmation status of the email.
-  - Default: true
+- **confirmedEmail**: boolean
+  - Confirmation status of the email.
+  - **Default**: true
   
-- **phone**
-  - Type: string
-  - Description: Customer's phone number.
+- **phone**: string
+  - Customer's phone number.
   
-- **firstName**
-  - Type: string
-  - Description: Customer's first name.
+- **firstName**: string
+  - Customer's first name.
   
-- **lastName**
-  - Type: string
-  - Description: Customer's last name.
+- **lastName**: string
+  - Customer's last name.
   
-- **primaryCurrency**
-  - Type: string
-  - Description: Main currency.
+- **primaryCurrency**: string
+  - Main currency.
   
-- **residenceCountry**
-  - Type: string
-  - Description: Country of residence for the customer.
+- **residenceCountry**: string
+  - Country of residence for the customer.
   
-- **residenceState**
-  - Type: string
-  - Description: Customer's residence state.
+- **residenceState**: string
+  - Customer's residence state.
   
-- **residenceCity**
-  - Type: string
-  - Description: Customer's residence city.
+- **residenceCity**: string
+  - Customer's residence city.
   
-- **residenceStreet**
-  - Type: string
-  - Description: Customer's residence street.
+- **residenceStreet**: string
+  - Customer's residence street.
   
-- **residenceZipCode**
-  - Type: string
-  - Description: Customer's residence postal code.
+- **residenceZipCode**: string
+  - Customer's residence postal code.
   
-- **pushEnabled**
-  - Type: boolean
-  - Description: Whether push notifications are enabled.
-  - Default: true
+- **pushEnabled**: boolean
+  - Whether push notifications are enabled.
+  - **Default**: true
   
-- **enabled2FA**
-  - Type: boolean
-  - Description: Whether two-factor authentication is enabled.
-  - Default: true
+- **enabled2FA**: boolean
+  - Whether two-factor authentication is enabled.
+  - **Default**: true
   
-- **dateOfBirth**
-  - Type: string<date-time>
-  - Description: Date of birth for the customer.
-  - Match pattern: `YYYY-MM-DDThh:mm:ss<TZDSuffix>`
+- **dateOfBirth**: string<date-time>
+  - Date of birth for the customer.
+  - **Match pattern**: `YYYY-MM-DDThh:mm:ss<TZDSuffix>`
   
-- **veroId**
-  - Type: string
-  - Description: Customer's identifier in the Vero system.
+- **veroId**: string
+  - Customer's identifier in the Vero system.
+
   
 **Responses example**
 ```json
