@@ -72,7 +72,7 @@ If a user's field with information is not filled (meaning it has a NULL value), 
 - **dateOfBirth**
   - Type: string<date-time>
   - Description: Date of birth for the customer.
-  - Match pattern: YYYY-MM-DDThh:mm:ss<TZDSuffix>
+  - Match pattern: `YYYY-MM-DDThh:mm:ss<TZDSuffix>`
   
 - **veroId**
   - Type: string
