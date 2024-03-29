@@ -19,7 +19,7 @@ If a user's field with information is not filled (meaning it has a NULL value), 
   
 - **confirmedEmail**: boolean
   - Confirmation status of the email.
-  - **Default**: true
+  - **Default**: `true`
   
 - **phone**: string
   - Customer's phone number.
@@ -50,11 +50,11 @@ If a user's field with information is not filled (meaning it has a NULL value), 
   
 - **pushEnabled**: boolean
   - Whether push notifications are enabled.
-  - **Default**: true
+  - **Default**: `true`
   
 - **enabled2FA**: boolean
   - Whether two-factor authentication is enabled.
-  - **Default**: true
+  - **Default**: `true`
   
 - **dateOfBirth**: string<date-time>
   - Date of birth for the customer.
