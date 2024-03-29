@@ -1,6 +1,6 @@
 # Validate Send Coins Request to Another Wallet
 
-`POST` **/v2/mobile/phone/confirm**
+`POST` **/v1/wallet/send/validate**
 
 The endpoint serves the purpose of validating a request to send coins to another wallet before executing the actual transaction.
 
