@@ -12,38 +12,31 @@ This endpoint is used to update the profile information of a customer.
 
 ### Parameters
 
-- **firstName**
-  - Type: string
-  - Description: A string representing the customer's first name.
-  
-- **lastName**
-  - Type: string
-  - Description: A string representing the customer's last name.
-  
-- **primaryCurrency**
-  - Type: string
-  - Description: A string representing the customer's primary currency.
-  
-- **residenceCountry**
-  - Type: string
-  - Description: A string representing the customer's residence country.
-  
-- **residenceCity**
-  - Type: string
-  - Description: A string representing the customer's residence city.
-  
-- **residenceStreet**
-  - Type: string
-  - Description: A string representing the customer's residence street.
-  
-- **residenceZipCode**
-  - Type: string
-  - Description: A string representing the customer's residence zip code.
-  
-- **dateOfBirth**
-  - Type: string
-  - Description: A string representing the customer's date of birth.
+- **First Name**: string
+  - A string representing the customer's first name.
+
+- **Last Name**: string
+  - A string representing the customer's last name.
+
+- **Primary Currency**: string
+  - A string representing the customer's primary currency.
+
+- **Residence Country**: string
+  - A string representing the customer's residence country.
+
+- **Residence City**: string
+  - A string representing the customer's residence city.
+
+- **Residence Street**: string
+  - A string representing the customer's residence street.
+
+- **Residence Zip Code**: string
+  - A string representing the customer's residence zip code.
+
+- **Date of Birth**: string
+  - A string representing the customer's date of birth.
   - Match pattern: `YYYY-MM-DDThh:mm:ss<TZDSuffix>`
+
 
 ### **Example body**
   
