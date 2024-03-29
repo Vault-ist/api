@@ -1,0 +1,2076 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0",
+    "title": "Wallet",
+    "description": "<h2>Overview</h2>\n\nThis `Wallet` section is designed for managing user wallets and conducting financial operations, such as creating wallets, retrieving information about wallets, sending coins, obtaining fee details, and viewing transaction history.\n"
+  },
+  "servers": [
+    {
+      "url": "https://api.vault.sandbox.testessential.net",
+      "description": "Sandbox"
+    }
+  ],
+  "paths": {
+    "/v2/wallets": {
+      "post": {
+        "summary": "Create Wallets",
+        "description": "The endpoint is intended for creating a wallet for the provided currency.\r\n\r\nInstructions for using the endpoint are available [here](../../docs/create-wallets.md).",
+        "operationId": "сreate-wallets",
+        "requestBody": {
+          "description": "In the test environment, wallet creation is only available for the following cryptocurrencies:\r\n\r\n<details>\r\n  <summary>Cryptocurrencies</summary>\r\n  \r\n- **TRX** \r\n- **BAT**\r\n- **BTC**\r\n- **CHO**\r\n- **CRPT**\r\n- **DAI**\r\n- **DAO**\r\n- **EUR**\r\n- **GALA**\r\n- **LINK**\r\n- **LTC**\r\n- **MANA**\r\n- **MAPS**\r\n- **MATIC**\r\n- **MKR**\r\n- **OMG**\r\n- **QASH**\r\n- **REP**\r\n- **SAND**\r\n- **SHIB**\r\n- **UNI**\r\n- **USDC**\r\n- **XRP**\r\n- **ETH**\r\n- **USDT**\r\n- **ZRX**\r\n- **TRX**\r\n</details>\r\n\r\nWallet creation for other cryptocurrencies is not available in the test environment.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "currencies": {
+                    "type": "array",
+                    "description": "сurrencies for which the wallet needs to be created.",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "currencies"
+                ],
+                "x-examples": {
+                  "Example 1": {
+                    "currencies": [
+                      "string"
+                    ]
+                  }
+                }
+              },
+              "examples": {
+                "Create wallet for provided currency": {
+                  "value": {
+                    "currencies": [
+                      "trx",
+                      "xrp",
+                      "ltc",
+                      "btc"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "201 Created\r\n\r\nThe response status code indicates that the request was successfully processed.\r\n\r\nMedia type: `application/json`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "wallets": {
+                      "type": "array",
+                      "description": "list of created wallets with detailed information for each.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "description": "wallet identifier in Vault."
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "name of the currency being created."
+                          },
+                          "externalId": {
+                            "type": "string",
+                            "description": "external identifier of the wallet in Vault."
+                          },
+                          "address": {
+                            "type": "string",
+                            "description": "blockchain network address of a specific coin."
+                          },
+                          "currency": {
+                            "type": "string",
+                            "description": "currency of the wallet.",
+                            "example": "BTC, ETH, LTC etc."
+                          },
+                          "baseCurrency": {
+                            "type": "string",
+                            "description": "base currency of the wallet."
+                          },
+                          "pattern": {
+                            "type": "string",
+                            "description": "wallet pattern."
+                          },
+                          "balance": {
+                            "type": "integer",
+                            "description": "current balance of the wallet."
+                          },
+                          "limits": {
+                            "type": "object",
+                            "description": "wallet limits.",
+                            "properties": {
+                              "additionalProp1": {
+                                "type": "object",
+                                "description": "a limit on some operation is imposed on a specific wallet.",
+                                "properties": {
+                                  "min": {
+                                    "type": "integer",
+                                    "description": " minimum limit."
+                                  },
+                                  "all": {
+                                    "type": "integer",
+                                    "description": "overall limit."
+                                  }
+                                }
+                              },
+                              "additionalProp2": {
+                                "type": "object",
+                                "description": "a limit on some operation is imposed on a specific wallet.",
+                                "properties": {
+                                  "min": {
+                                    "type": "integer",
+                                    "description": "minimum limit."
+                                  },
+                                  "all": {
+                                    "type": "integer",
+                                    "description": "overall limit."
+                                  }
+                                }
+                              },
+                              "additionalProp3": {
+                                "type": "object",
+                                "description": "a limit on some operation is imposed on a specific wallet.",
+                                "properties": {
+                                  "min": {
+                                    "type": "integer",
+                                    "description": "minimum limit."
+                                  },
+                                  "all": {
+                                    "type": "integer",
+                                    "description": "overall limit."
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "balanceString": {
+                            "type": "string",
+                            "description": "string representation of the balance."
+                          },
+                          "availableBalance": {
+                            "type": "integer",
+                            "description": "balance that is currently available to the user."
+                          },
+                          "customerId": {
+                            "type": "integer",
+                            "description": "identifier of the customer associated with the wallet."
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "description": "date and time of wallet creation.",
+                            "format": "date-time",
+                            "pattern": "YYYY-MM-DDThh:mm:ss<TZDSuffix>"
+                          },
+                          "isDebit": {
+                            "type": "boolean",
+                            "description": "flag indicating whether the wallet is a debit wallet.",
+                            "default": true
+                          },
+                          "allowOperations": {
+                            "type": "array",
+                            "description": "specifies the allowed operations with the wallet.",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "color": {
+                            "type": "string",
+                            "description": "color code associated with the wallet."
+                          },
+                          "fiat": {
+                            "type": "object",
+                            "description": "information about the wallet in fiat currency.",
+                            "properties": {
+                              "customerCurrency": {
+                                "type": "string",
+                                "description": "customer's currency."
+                              },
+                              "amount": {
+                                "type": "integer",
+                                "description": "a variable that indicates a specific value in rubles."
+                              },
+                              "change": {
+                                "type": "integer",
+                                "description": "a variable that displays changes as a percentage (what happened to the wallet during the day) in fiat currency."
+                              },
+                              "changePercent": {
+                                "type": "integer",
+                                "description": "in percentage."
+                              },
+                              "rate": {
+                                "type": "integer",
+                                "description": "cryptocurrency to customerCurrency conversion rate."
+                              }
+                            }
+                          },
+                          "scale": {
+                            "type": "integer",
+                            "description": "a variable that specifies where the comma appears in a number."
+                          },
+                          "stub": {
+                            "type": "boolean",
+                            "description": "indication of a stub or real wallet.",
+                            "default": true
+                          },
+                          "walletCreationState": {
+                            "type": "string",
+                            "description": "the variable is intended to display the status of the wallet.\r\n\r\nAllowed values:\r\n- `Ready`: Status means that a real address has been received and the wallet is ready for use.\r\n- `New`: Status means that the wallet has just been created.\r\n- `Getting`: Status means that the wallet is in the process of receiving a real address."
+                          },
+                          "iconUrl": {
+                            "type": "string",
+                            "description": "link to wallet icon."
+                          },
+                          "network": {
+                            "type": "string",
+                            "description": "wallet network."
+                          }
+                        }
+                      }
+                    },
+                    "fiat": {
+                      "type": "object",
+                      "description": "information about user fiat funds.",
+                      "properties": {
+                        "customerCurrency": {
+                          "type": "string",
+                          "description": "id, which is stored in the database."
+                        },
+                        "amount": {
+                          "type": "integer",
+                          "description": "a variable that indicates a specific value in customerCurrency."
+                        },
+                        "change": {
+                          "type": "integer",
+                          "description": "a variable that displays changes as a percentage (what happened to the wallet during the day)."
+                        },
+                        "changePercent": {
+                          "type": "integer",
+                          "description": "сhange percentage in fiat currency."
+                        },
+                        "rate": {
+                          "type": "integer",
+                          "description": "exchange rate."
+                        }
+                      }
+                    }
+                  },
+                  "x-examples": {
+                    "Example 1": {
+                      "offset": 0,
+                      "total": 0,
+                      "size": 0,
+                      "wallets": [
+                        {
+                          "id": 0,
+                          "name": "string",
+                          "externalId": "string",
+                          "address": "string",
+                          "currency": "string",
+                          "baseCurrency": "string",
+                          "pattern": "string",
+                          "balance": 0,
+                          "limits": {
+                            "additionalProp1": {
+                              "min": 0,
+                              "all": 0
+                            },
+                            "additionalProp2": {
+                              "min": 0,
+                              "all": 0
+                            },
+                            "additionalProp3": {
+                              "min": 0,
+                              "all": 0
+                            }
+                          },
+                          "balanceString": "string",
+                          "availableBalance": 0,
+                          "customerId": 0,
+                          "createdAt": "2024-01-10T13:10:11.438Z",
+                          "isDebit": true,
+                          "allowOperations": [
+                            "string"
+                          ],
+                          "color": "string",
+                          "fiat": {
+                            "customerCurrency": "string",
+                            "amount": 0,
+                            "change": 0,
+                            "changePercent": 0,
+                            "rate": 0
+                          },
+                          "scale": 0,
+                          "stub": true,
+                          "walletCreationState": "NEW",
+                          "iconUrl": "string",
+                          "network": "string"
+                        }
+                      ],
+                      "accounts": [
+                        {
+                          "name": "string",
+                          "availableBalance": 0,
+                          "availableBalanceInDefaultCurrency": 0,
+                          "allowOperations": [
+                            "string"
+                          ],
+                          "balance": 0,
+                          "color": "string",
+                          "currency": "string",
+                          "status": "NONE",
+                          "scale": 0,
+                          "details": {
+                            "beneficiary": "string",
+                            "number": "string",
+                            "bicCode": "string",
+                            "beneficiaryBankName": "string",
+                            "paymentDetails": "string",
+                            "country": "string",
+                            "depositFeePercent": 0
+                          },
+                          "kyc": {
+                            "status": "APPROVED",
+                            "additionalStatus": [
+                              "ADDRESS"
+                            ],
+                            "rejectReason": "string"
+                          },
+                          "createdAt": "2024-01-10T13:10:11.438Z",
+                          "iconUrl": "string"
+                        }
+                      ],
+                      "fiat": {
+                        "customerCurrency": "string",
+                        "amount": 0,
+                        "change": 0,
+                        "changePercent": 0,
+                        "rate": 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The response status code indicates that the server cannot or will not process the request due to something perceived as a client error.\r\n\r\nMedia type: `application/json`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "message that will be displayed to the user."
+                    },
+                    "field": {
+                      "type": "string",
+                      "description": "specifies the field in the request that caused the error."
+                    },
+                    "errorId": {
+                      "type": "integer",
+                      "description": "integer identifier of the error."
+                    },
+                    "systemId": {
+                      "type": "string",
+                      "description": "identifier of the component."
+                    },
+                    "originalMessage": {
+                      "type": "string",
+                      "description": "the original error message."
+                    },
+                    "errorStackTrace": {
+                      "type": "string",
+                      "description": "the place where the error appeared in the code."
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "additional data related to the error, structured as key-value pairs.",
+                      "properties": {
+                        "additionalProp1": {
+                          "type": "object"
+                        },
+                        "additionalProp2": {
+                          "type": "object"
+                        },
+                        "additionalProp3": {
+                          "type": "object"
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "identifier of the error."
+                    }
+                  },
+                  "x-examples": {
+                    "Example 1": {
+                      "message": "string",
+                      "field": "string",
+                      "errorId": 0,
+                      "systemId": "string",
+                      "originalMessage": "string",
+                      "errorStackTrace": "string",
+                      "data": {
+                        "additionalProp1": {},
+                        "additionalProp2": {},
+                        "additionalProp3": {}
+                      },
+                      "error": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization: Bearer": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "https://api.vault.sandbox.testessential.net",
+            "description": "Sandbox"
+          }
+        ]
+      }
+    },
+	 "get": {
+    "summary": "Get Wallets",
+    "description": "This endpoint provides detailed information about user wallets, including associated accounts and fiat funds. It is designed for retrieving user wallet information.",
+    "operationId": "get-wallets",
+    "responses": {
+      "200": {
+        "description": "OK\r\n\r\nMedia type: `application/json`",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "wallets": {
+                  "type": "array",
+                  "description": "list of created wallets with detailed information for each.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "description": "wallet identifier in Vault."
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "name of the currency being created."
+                      },
+                      "externalId": {
+                        "type": "string",
+                        "description": "external identifier of the wallet in Vault."
+                      },
+                      "address": {
+                        "type": "string",
+                        "description": "blockchain network address of a specific coin."
+                      },
+                      "currency": {
+                        "type": "string",
+                        "description": "currency of the wallet.",
+                        "example": "BTC, ETH, LTC etc."
+                      },
+                      "baseCurrency": {
+                        "type": "string",
+                        "description": "base currency of the wallet."
+                      },
+                      "pattern": {
+                        "type": "string",
+                        "description": "wallet pattern."
+                      },
+                      "balance": {
+                        "type": "integer",
+                        "description": "current balance of the wallet."
+                      },
+                      "limits": {
+                        "type": "object",
+                        "description": "wallet limits.",
+                        "properties": {
+                          "additionalProp1": {
+                            "type": "object",
+                            "description": "a limit on some operation is imposed on a specific wallet.",
+                            "properties": {
+                              "min": {
+                                "type": "integer",
+                                "description": "minimum limit."
+                              },
+                              "all": {
+                                "type": "integer",
+                                "description": "overall limit."
+                              }
+                            }
+                          },
+                          "additionalProp2": {
+                            "type": "object",
+                            "description": "a limit on some operation is imposed on a specific wallet.",
+                            "properties": {
+                              "min": {
+                                "type": "integer",
+                                "description": "minimum limit."
+                              },
+                              "all": {
+                                "type": "integer",
+                                "description": "overall limit."
+                              }
+                            }
+                          },
+                          "additionalProp3": {
+                            "type": "object",
+                            "description": "a limit on some operation is imposed on a specific wallet.",
+                            "properties": {
+                              "min": {
+                                "type": "integer",
+                                "description": "minimum limit."
+                              },
+                              "all": {
+                                "type": "integer",
+                                "description": "overall limit."
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "balanceString": {
+                        "type": "string",
+                        "description": "string representation of the balance."
+                      },
+                      "availableBalance": {
+                        "type": "integer",
+                        "description": "balance that is currently available to the user."
+                      },
+                      "customerId": {
+                        "type": "integer",
+                        "description": "identifier of the customer associated with the wallet."
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "description": "wallet creation date.",
+                        "format": "date-time",
+                        "pattern": "YYYY-MM-DDThh:mm:ss<TZDSuffix>"
+                      },
+                      "isDebit": {
+                        "type": "boolean",
+                        "description": "flag indicating whether the wallet is a debit wallet.",
+                        "default": true
+                      },
+                      "allowOperations": {
+                        "type": "array",
+                        "description": "specifies the allowed operations with the wallet.",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "color": {
+                        "type": "string",
+                        "description": "color code associated with the wallet."
+                      },
+                      "fiat": {
+                        "type": "object",
+                        "description": "fiat wallet representation.",
+                        "properties": {
+                          "customerCurrency": {
+                            "type": "string",
+                            "description": "id, which is stored in the database."
+                          },
+                          "amount": {
+                            "type": "integer",
+                            "description": "a variable that indicates a specific value in rubles."
+                          },
+                          "change": {
+                            "type": "integer",
+                            "description": "a variable that displays changes as a percentage (what happened to the wallet during the day) in fiat currency."
+                          },
+                          "changePercent": {
+                            "type": "integer",
+                            "description": "in percentage."
+                          },
+                          "rate": {
+                            "type": "integer",
+                            "description": "cryptocurrency to customerCurrency conversion rate."
+                          }
+                        }
+                      },
+                      "scale": {
+                        "type": "integer",
+                        "description": "a variable that specifies where the comma appears in a number."
+                      },
+                      "stub": {
+                        "type": "boolean",
+                        "description": "indication of a stub or real wallet.",
+                        "default": true
+                      },
+                      "walletCreationState": {
+                        "type": "string",
+                        "description": "the variable is intended to display the status of the wallet.\r\n\r\nAllowed values:\r\n- `Ready`: Status means that a real address has been received and the wallet is ready for use.\r\n- `New`: Status means that the wallet has just been created.\r\n- `Getting`: Status means that the wallet is in the process of receiving a real address."
+                      },
+                      "iconUrl": {
+                        "type": "string",
+                        "description": "link to wallet icon."
+                      },
+                      "network": {
+                        "type": "string",
+                        "description": "token network."
+                      }
+                    }
+                  }
+                },
+                "fiat": {
+                  "type": "object",
+                  "description": "information about user's fiat funds.",
+                  "properties": {
+                    "customerCurrency": {
+                      "type": "string",
+                      "description": "id, which is stored in the database."
+                    },
+                    "amount": {
+                      "type": "integer",
+                      "description": "amount of fiat funds in customerCurrency."
+                    },
+                    "change": {
+                      "type": "integer",
+                      "description": "a variable that displays changes as a percentage (what happened to the wallet during the day)."
+                    },
+                    "changePercent": {
+                      "type": "integer",
+                      "description": "change percentage."
+                    },
+                    "rate": {
+                      "type": "integer",
+                      "description": "exchange rate."
+                    }
+                  }
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "offset": 0,
+                  "total": 0,
+                  "size": 0,
+                  "wallets": [
+                    {
+                      "id": 0,
+                      "name": "string",
+                      "externalId": "string",
+                      "address": "string",
+                      "currency": "string",
+                      "baseCurrency": "string",
+                      "pattern": "string",
+                      "balance": 0,
+                      "limits": {
+                        "additionalProp1": {
+                          "min": 0,
+                          "all": 0
+                        },
+                        "additionalProp2": {
+                          "min": 0,
+                          "all": 0
+                        },
+                        "additionalProp3": {
+                          "min": 0,
+                          "all": 0
+                        }
+                      },
+                      "balanceString": "string",
+                      "availableBalance": 0,
+                      "customerId": 0,
+                      "createdAt": "2023-12-27T12:49:16.644Z",
+                      "isDebit": true,
+                      "allowOperations": [
+                        "string"
+                      ],
+                      "color": "string",
+                      "fiat": {
+                        "customerCurrency": "string",
+                        "amount": 0,
+                        "change": 0,
+                        "changePercent": 0,
+                        "rate": 0
+                      },
+                      "scale": 0,
+                      "stub": true,
+                      "walletCreationState": "NEW",
+                      "iconUrl": "string",
+                      "network": "string"
+                    }
+                  ],
+                  "accounts": [
+                    {
+                      "name": "string",
+                      "availableBalance": 0,
+                      "availableBalanceInDefaultCurrency": 0,
+                      "allowOperations": [
+                        "string"
+                      ],
+                      "balance": 0,
+                      "color": "string",
+                      "currency": "string",
+                      "status": "NONE",
+                      "scale": 0,
+                      "details": {
+                        "beneficiary": "string",
+                        "number": "string",
+                        "bicCode": "string",
+                        "beneficiaryBankName": "string",
+                        "paymentDetails": "string",
+                        "country": "string",
+                        "depositFeePercent": 0
+                      },
+                      "kyc": {
+                        "status": "APPROVED",
+                        "additionalStatus": [
+                          "ADDRESS"
+                        ],
+                        "rejectReason": "string"
+                      },
+                      "createdAt": "2023-12-27T12:49:16.644Z",
+                      "iconUrl": "string"
+                    }
+                  ],
+                  "fiat": {
+                    "customerCurrency": "string",
+                    "amount": 0,
+                    "change": 0,
+                    "changePercent": 0,
+                    "rate": 0
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "The response status code indicates that the server cannot or will not process the request due to something perceived as a client error.\r\n\r\nMedia type: `application/json`",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "message that will be displayed to the user."
+                },
+                "field": {
+                  "type": "string",
+                  "description": "specifies the field in the request that caused the error."
+                },
+                "errorId": {
+                  "type": "integer",
+                  "description": "integer identifier of the error."
+                },
+                "systemId": {
+                  "type": "string",
+                  "description": "identifier of the component."
+                },
+                "originalMessage": {
+                  "type": "string",
+                  "description": "the original error message."
+                },
+                "errorStackTrace": {
+                  "type": "string",
+                  "description": "the place where the error appeared in the code."
+                },
+                "data": {
+                  "type": "object",
+                  "description": "additional data related to the error, structured as key-value pairs.",
+                  "properties": {
+                    "additionalProp1": {
+                      "type": "object"
+                    },
+                    "additionalProp2": {
+                      "type": "object"
+                    },
+                    "additionalProp3": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "error": {
+                  "type": "string",
+                  "description": "identifier of the error."
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "message": "string",
+                  "field": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "originalMessage": "string",
+                  "errorStackTrace": "string",
+                  "data": {
+                    "additionalProp1": {},
+                    "additionalProp2": {},
+                    "additionalProp3": {}
+                  },
+                  "error": "string"
+                }
+              }
+            },
+            "examples": {
+              "400\tBad Request": {
+                "value": {
+                  "message": "Coin EUR not found in symboldb",
+                  "errorId": 0,
+                  "systemId": "core",
+                  "error": "COIN_NOT_RESOLVED"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "security": [
+      {
+        "Authorization: Bearer": []
+      }
+    ],
+    "servers": [
+      {
+        "url": "https://api.vault.sandbox.testessential.net",
+        "description": "Sandbox"
+      }
+    ]
+  },
+  "/v2/history/operations": {
+    "get": {
+      "summary": "History Transactions",
+      "description": "This endpoint is designed to retrieve the user's wallet transaction history, providing information about various operations, including currency exchange, cryptocurrency receipt, funding from various sources, card withdrawal, transfer to another wallet, and mobile transfers.",
+      "operationId": "history-transactions",
+      "parameters": [
+        {
+          "name": "currencyFilter",
+          "in": "query",
+          "description": "filter based on currencies.",
+          "schema": {
+            "type": "array"
+          }
+        },
+        {
+          "name": "typeFilter",
+          "in": "query",
+          "description": "indicating the type of operations to filter. Refer to the [Types of Filters](docs/Types-of-filters.md) section for details on all types of transaction history filters.",
+          "schema": {
+            "type": "array",
+            "enum": [
+              "UNKNOWN",
+              "RECEIVE_CRYPTO",
+              "PAYIN_CARD",
+              "PAYIN_ADVCASH",
+              "PAYOUT_CARD",
+              "EXCHANGE",
+              "SEND_TO_PHONE",
+              "SEND_TO_WALLET"
+            ]
+          }
+        },
+        {
+          "name": "offset",
+          "in": "query",
+          "description": "offset limit for pagination.",
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "default": 0
+          }
+        },
+        {
+          "name": "size",
+          "in": "query",
+          "description": "number of transactions in the results.",
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "default": 50
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "OK\r\n\r\nMedia type: `application/json`",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "operationId": {
+                      "type": "string",
+                      "description": "a unique identifier for the operation."
+                    },
+                    "operationDate": {
+                      "type": "string",
+                      "description": "the date and time when the operation occurred.",
+                      "format": "date-time",
+                      "pattern": "YYYY-MM-DDThh:mm:ss<TZDSuffix>"
+                    },
+                    "operationStatus": {
+                      "type": "string",
+                      "description": "status of the operation."
+                    },
+                    "exchangeModel": {
+                      "type": "object",
+                      "description": "details about an exchange operation.",
+                      "properties": {
+                        "fromAddress": {
+                          "type": "string",
+                          "description": "a string representing the sender's address in the exchange operation."
+                        },
+                        "toAddress": {
+                          "type": "string",
+                          "description": "a string representing the recipient's address in the exchange operation."
+                        },
+                        "debitAmount": {
+                          "type": "object",
+                          "description": "an object containing the value and currency of the debited amount.",
+                          "properties": {
+                            "value": {
+                              "type": "integer",
+                              "description": "debit amount value."
+                            },
+                            "currency": {
+                              "type": "string",
+                              "description": "debit amount currency."
+                            }
+                          }
+                        },
+                        "creditAmount": {
+                          "type": "object",
+                          "description": "amount credited in the exchange.",
+                          "properties": {
+                            "value": {
+                              "type": "integer",
+                              "description": "credit amount value."
+                            },
+                            "currency": {
+                              "type": "string",
+                              "description": "credit amount currency."
+                            }
+                          }
+                        },
+                        "exchangeRate": {
+                          "type": "object",
+                          "description": "exchange rate details.",
+                          "properties": {
+                            "sourceCurrency": {
+                              "type": "string",
+                              "description": "source currency for the exchange rate."
+                            },
+                            "targetCurrency": {
+                              "type": "string",
+                              "description": "target currency for the exchange."
+                            },
+                            "rate": {
+                              "type": "integer",
+                              "description": "the exchange rate."
+                            },
+                            "multiplier": {
+                              "type": "integer",
+                              "description": "the multiplier for the exchange rate."
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "receiveCryptoModel": {
+                      "type": "object",
+                      "description": "details about receiving cryptocurrency.",
+                      "properties": {
+                        "toAddress": {
+                          "type": "string",
+                          "description": "receiver's address."
+                        },
+                        "fromAddress": {
+                          "type": "string",
+                          "description": "sender's address."
+                        },
+                        "amount": {
+                          "type": "object",
+                          "description": "amount with currency information.",
+                          "properties": {
+                            "value": {
+                              "type": "integer",
+                              "description": "the value of the received amount."
+                            },
+                            "currency": {
+                              "type": "string",
+                              "description": "currency of the received amount."
+                            }
+                          }
+                        },
+                        "txHash": {
+                          "type": "string",
+                          "description": "transaction hash for the received crypto."
+                        }
+                      }
+                    },
+                    "payinAdvcashModel": {
+                      "type": "object",
+                      "description": "details about a Payin operation using Advcash.",
+                      "properties": {
+                        "email": {
+                          "type": "string",
+                          "description": "email associated with the Advcash payment."
+                        },
+                        "toAddress": {
+                          "type": "string",
+                          "description": "destination address for Advcash payment."
+                        },
+                        "debitAmount": {
+                          "type": "object",
+                          "description": "debit amount details for Advcash payment.",
+                          "properties": {
+                            "value": {
+                              "type": "integer",
+                              "description": "the value of the debit amount."
+                            },
+                            "currency": {
+                              "type": "string",
+                              "description": "currency of the debit amount."
+                            }
+                          }
+                        },
+                        "creditAmount": {
+                          "type": "object",
+                          "description": "credit amount details for Advcash payment.",
+                          "properties": {
+                            "value": {
+                              "type": "integer",
+                              "description": "the value of the credit amount."
+                            },
+                            "currency": {
+                              "type": "string",
+                              "description": "currency of the credit amount"
+                            }
+                          }
+                        },
+                        "feeAmount": {
+                          "type": "object",
+                          "description": "fee amount details for Advcash payment.",
+                          "properties": {
+                            "value": {
+                              "type": "integer",
+                              "description": "the value of the fee amount."
+                            },
+                            "currency": {
+                              "type": "string",
+                              "description": "currency of the fee amount."
+                            }
+                          }
+                        },
+                        "exchangeRate": {
+                          "type": "object",
+                          "description": "details of the exchange rate for Advcash payment.",
+                          "properties": {
+                            "sourceCurrency": {
+                              "type": "string",
+                              "description": "source currency for the exchange."
+                            },
+                            "targetCurrency": {
+                              "type": "string",
+                              "description": "target currency for the exchange."
+                            },
+                            "rate": {
+                              "type": "integer",
+                              "description": "the exchange rate."
+                            },
+                            "multiplier": {
+                              "type": "integer",
+                              "description": "the multiplier for the exchange rate."
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "payinCardModel": {
+                      "type": "object",
+                      "description": "details about a Payin operation using a card.",
+                      "properties": {
+                        "fromCardPAN": {
+                          "type": "string",
+                          "description": "source card's PAN for card payment."
+                        },
+                        "toAddress": {
+                          "type": "string",
+                          "description": "destination address for card payment."
+                        },
+                        "debitAmount": {
+                          "type": "object",
+                          "description": "debit amount details for card payment.",
+                          "properties": {
+                            "value": {
+                              "type": "integer",
+                              "description": "the value of the debit amount."
+                            },
+                            "currency": {
+                              "type": "string",
+                              "description": "currency of the debit amount."
+                            }
+                          }
+                        },
+                        "creditAmount": {
+                          "type": "object",
+                          "description": "credit amount details for card payment.",
+                          "properties": {
+                            "value": {
+                              "type": "integer",
+                              "description": "the value of the credit amount."
+                            },
+                            "currency": {
+                              "type": "string",
+                              "description": "currency of the credit amount."
+                            }
+                          }
+                        },
+                        "feeAmount": {
+                          "type": "object",
+                          "description": "fee amount details for card payment.",
+                          "properties": {
+                            "value": {
+                              "type": "integer",
+                              "description": "the value of the fee amount."
+                            },
+                            "currency": {
+                              "type": "string",
+                              "description": "currency of the fee amount."
+                            }
+                          }
+                        },
+                        "exchangeRate": {
+                          "type": "object",
+                          "description": "details of the exchange rate for card payment.",
+                          "properties": {
+                            "sourceCurrency": {
+                              "type": "string",
+                              "description": "source currency for the exchange."
+                            },
+                            "targetCurrency": {
+                              "type": "string",
+                              "description": "target currency for the exchange."
+                            },
+                            "rate": {
+                              "type": "integer",
+                              "description": "the exchange rate."
+                            },
+                            "multiplier": {
+                              "type": "integer",
+                              "description": "the multiplier for the exchange rate."
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "payoutCardModel": {
+                      "type": "object",
+                      "description": "details about a Payout operation to a card.",
+                      "properties": {
+                        "fromAddress": {
+                          "type": "string",
+                          "description": "source address for card payout."
+                        },
+                        "toCardPAN": {
+                          "type": "string",
+                          "description": "destination card's PAN for card payout."
+                        },
+                        "debitAmount": {
+                          "type": "object",
+                          "description": "debit amount details for card payout.",
+                          "properties": {
+                            "value": {
+                              "type": "integer",
+                              "description": "the value of the debit amount."
+                            },
+                            "currency": {
+                              "type": "string",
+                              "description": "currency of the debit amount."
+                            }
+                          }
+                        },
+                        "creditAmount": {
+                          "type": "object",
+                          "description": "credit amount details for card payout.",
+                          "properties": {
+                            "value": {
+                              "type": "integer",
+                              "description": "the value of the credit amount."
+                            },
+                            "currency": {
+                              "type": "string",
+                              "description": "currency of the credit amount."
+                            }
+                          }
+                        },
+                        "feeAmount": {
+                          "type": "object",
+                          "description": "fee amount details for card payout.",
+                          "properties": {
+                            "value": {
+                              "type": "integer",
+                              "description": "the value of the fee amount."
+                            },
+                            "currency": {
+                              "type": "string",
+                              "description": "currency of the fee amount."
+                            }
+                          }
+                        },
+                        "exchangeRate": {
+                          "type": "object",
+                          "description": "details of the exchange rate for card payout.",
+                          "properties": {
+                            "sourceCurrency": {
+                              "type": "string",
+                              "description": "source currency for the exchange"
+                            },
+                            "targetCurrency": {
+                              "type": "string",
+                              "description": "target currency for the exchange."
+                            },
+                            "rate": {
+                              "type": "integer",
+                              "description": "the exchange rate."
+                            },
+                            "multiplier": {
+                              "type": "integer",
+                              "description": "the multiplier for the exchange rate."
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "sendToWalletModel": {
+                      "type": "object",
+                      "description": "model for sending to another wallet operation.",
+                      "properties": {
+                        "fromAddress": {
+                          "type": "string",
+                          "description": "source address for the send operation."
+                        },
+                        "toAddress": {
+                          "type": "string",
+                          "description": "destination address for the send operation."
+                        },
+                        "debitAmount": {
+                          "type": "object",
+                          "description": "amount debited in the send operation.",
+                          "properties": {
+                            "value": {
+                              "type": "integer",
+                              "description": "debit amount value."
+                            },
+                            "currency": {
+                              "type": "string",
+                              "description": "debit amount currency."
+                            }
+                          }
+                        },
+                        "creditAmount": {
+                          "type": "object",
+                          "description": "amount credited in the send operation.",
+                          "properties": {
+                            "value": {
+                              "type": "integer",
+                              "description": "credit amount value."
+                            },
+                            "currency": {
+                              "type": "string",
+                              "description": "credit amount currency."
+                            }
+                          }
+                        },
+                        "feeAmount": {
+                          "type": "object",
+                          "description": "fee amount details.",
+                          "properties": {
+                            "value": {
+                              "type": "integer",
+                              "description": "the value of the fee amount."
+                            },
+                            "currency": {
+                              "type": "string",
+                              "description": "currency of the fee amount."
+                            }
+                          }
+                        },
+                        "txHash": {
+                          "type": "string",
+                          "description": "transaction hash for the send operation."
+                        }
+                      }
+                    },
+                    "sendToPhoneModel": {
+                      "type": "object",
+                      "description": "model for sending to a phone operation.",
+                      "properties": {
+                        "fromAddress": {
+                          "type": "string",
+                          "description": "source address for the send operation."
+                        },
+                        "toPhone": {
+                          "type": "string",
+                          "description": "destination phone number for the send operation."
+                        },
+                        "amount": {
+                          "type": "object",
+                          "description": "amount details for the send operation.",
+                          "properties": {
+                            "value": {
+                              "type": "integer",
+                              "description": "amount value for the send operation."
+                            },
+                            "currency": {
+                              "type": "string",
+                              "description": "amount currency for the send operation."
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "x-examples": {
+                  "Example 1": [
+                    {
+                      "operationId": "string",
+                      "operationDate": "2024-01-10T18:00:52.742Z",
+                      "operationStatus": "PENDING",
+                      "exchangeModel": {
+                        "fromAddress": "string",
+                        "toAddress": "string",
+                        "debitAmount": {
+                          "value": 0,
+                          "currency": "string"
+                        },
+                        "creditAmount": {
+                          "value": 0,
+                          "currency": "string"
+                        },
+                        "exchangeRate": {
+                          "sourceCurrency": "string",
+                          "targetCurrency": "string",
+                          "rate": 0,
+                          "multiplier": 0
+                        }
+                      },
+                      "receiveCryptoModel": {
+                        "toAddress": "string",
+                        "fromAddress": "string",
+                        "amount": {
+                          "value": 0,
+                          "currency": "string"
+                        },
+                        "txHash": "string"
+                      },
+                      "payinAdvcashModel": {
+                        "email": "string",
+                        "toAddress": "string",
+                        "debitAmount": {
+                          "value": 0,
+                          "currency": "string"
+                        },
+                        "creditAmount": {
+                          "value": 0,
+                          "currency": "string"
+                        },
+                        "feeAmount": {
+                          "value": 0,
+                          "currency": "string"
+                        },
+                        "exchangeRate": {
+                          "sourceCurrency": "string",
+                          "targetCurrency": "string",
+                          "rate": 0,
+                          "multiplier": 0
+                        }
+                      },
+                      "payinCardModel": {
+                        "fromCardPAN": "string",
+                        "toAddress": "string",
+                        "debitAmount": {
+                          "value": 0,
+                          "currency": "string"
+                        },
+                        "creditAmount": {
+                          "value": 0,
+                          "currency": "string"
+                        },
+                        "feeAmount": {
+                          "value": 0,
+                          "currency": "string"
+                        },
+                        "exchangeRate": {
+                          "sourceCurrency": "string",
+                          "targetCurrency": "string",
+                          "rate": 0,
+                          "multiplier": 0
+                        }
+                      },
+                      "payoutCardModel": {
+                        "fromAddress": "string",
+                        "toCardPAN": "string",
+                        "debitAmount": {
+                          "value": 0,
+                          "currency": "string"
+                        },
+                        "creditAmount": {
+                          "value": 0,
+                          "currency": "string"
+                        },
+                        "feeAmount": {
+                          "value": 0,
+                          "currency": "string"
+                        },
+                        "exchangeRate": {
+                          "sourceCurrency": "string",
+                          "targetCurrency": "string",
+                          "rate": 0,
+                          "multiplier": 0
+                        }
+                      },
+                      "sendToWalletModel": {
+                        "fromAddress": "string",
+                        "toAddress": "string",
+                        "debitAmount": {
+                          "value": 0,
+                          "currency": "string"
+                        },
+                        "creditAmount": {
+                          "value": 0,
+                          "currency": "string"
+                        },
+                        "feeAmount": {
+                          "value": 0,
+                          "currency": "string"
+                        },
+                        "txHash": "string"
+                      },
+                      "sendToPhoneModel": {
+                        "fromAddress": "string",
+                        "toPhone": "string",
+                        "amount": {
+                          "value": 0,
+                          "currency": "string"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "400": {
+    "description": "The response status code indicates that the server cannot or will not process the request due to something perceived as a client error.\r\n\r\nMedia type: `application/json`",
+    "content": {
+      "application/json": {
+        "schema": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string",
+              "description": "message that will be displayed to the user."
+            },
+            "field": {
+              "type": "string",
+              "description": "specifies the field in the request that caused the error."
+            },
+            "errorId": {
+              "type": "integer",
+              "description": "integer identifier of the error."
+            },
+            "systemId": {
+              "type": "string",
+              "description": "identifier of the component."
+            },
+            "originalMessage": {
+              "type": "string",
+              "description": "the original error message."
+            },
+            "errorStackTrace": {
+              "type": "string",
+              "description": "the place where the error appeared in the code."
+            },
+            "data": {
+              "type": "object",
+              "description": "additional data related to the error, structured as key-value pairs.",
+              "properties": {
+                "additionalProp1": {
+                  "type": "object"
+                },
+                "additionalProp2": {
+                  "type": "object"
+                },
+                "additionalProp3": {
+                  "type": "object"
+                }
+              }
+            },
+            "error": {
+              "type": "string",
+              "description": "identifier of the error."
+            }
+          },
+          "x-examples": {
+            "Example 1": {
+              "message": "string",
+              "field": "string",
+              "errorId": 0,
+              "systemId": "string",
+              "originalMessage": "string",
+              "errorStackTrace": "string",
+              "data": {
+                "additionalProp1": {},
+                "additionalProp2": {},
+                "additionalProp3": {}
+              },
+              "error": "string"
+            }
+          }
+        },
+        "examples": {
+          "Example 1": {
+            "value": {
+              "message": "string",
+              "field": "string",
+              "errorId": 0,
+              "systemId": "string",
+              "originalMessage": "string",
+              "errorStackTrace": "string",
+              "data": {
+                "additionalProp1": {},
+                "additionalProp2": {},
+                "additionalProp3": {}
+              },
+              "error": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "Authorization: Bearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "responses": {
+      "400-Bad-Request": {
+        "description": "The response status code indicates that the server cannot or will not process the request due to something perceived as a client error.\r\n\r\nMedia type: `application/json`",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "message that will be displayed to the user."
+                },
+                "field": {
+                  "type": "string"
+                },
+                "errorId": {
+                  "type": "integer",
+                  "description": "integer identifier of the error."
+                },
+                "systemId": {
+                  "type": "string",
+                  "description": "identifier of the component"
+                },
+                "originalMessage": {
+                  "type": "string"
+                },
+                "errorStackTrace": {
+                  "type": "string",
+                  "description": "the place where the error appeared in the code."
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "additionalProp1": {
+                      "type": "object"
+                    },
+                    "additionalProp2": {
+                      "type": "object"
+                    },
+                    "additionalProp3": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "error": {
+                  "type": "string",
+                  "description": "identifier of the error."
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "message": "string",
+                  "field": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "originalMessage": "string",
+                  "errorStackTrace": "string",
+                  "data": {
+                    "additionalProp1": {},
+                    "additionalProp2": {},
+                    "additionalProp3": {}
+                  },
+                  "error": "string"
+                }
+              }
+            },
+            "examples": {
+              "400 Bad Request": {
+                "value": {
+                  "message": "string",
+                  "field": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "originalMessage": "string",
+                  "errorStackTrace": "string",
+                  "data": {
+                    "additionalProp1": {},
+                    "additionalProp2": {},
+                    "additionalProp3": {}
+                  },
+                  "error": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "424-Failed-Dependency": {
+        "description": "The response status code indicates that the entered user number is already registered.\n\nMedia type: `application/json`",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "errorId": {
+                  "type": "integer"
+                },
+                "systemId": {
+                  "type": "string"
+                },
+                "sessionId": {
+                  "type": "string"
+                },
+                "factors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "default": {
+                        "type": "boolean",
+                        "default": true
+                      }
+                    }
+                  }
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "message": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "sessionId": "string",
+                  "factors": [
+                    {
+                      "id": "string",
+                      "type": "EMAIL",
+                      "value": "string",
+                      "default": true
+                    }
+                  ]
+                }
+              }
+            },
+            "examples": {
+              "424 Failed Dependency": {
+                "value": {
+                  "message": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "sessionId": "string",
+                  "factors": [
+                    {
+                      "id": "string",
+                      "type": "EMAIL",
+                      "value": "string",
+                      "default": true
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "401-Unauthorized": {
+        "description": "The response status code indicates that it cannot be completed due to missing or invalid authentication data.\r\n\r\nMedia type: `application/json`",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "message that will be displayed to the user."
+                },
+                "field": {
+                  "type": "string"
+                },
+                "errorId": {
+                  "type": "integer",
+                  "description": "integer identifier of the error."
+                },
+                "systemId": {
+                  "type": "string",
+                  "description": "identifier of the component"
+                },
+                "originalMessage": {
+                  "type": "string"
+                },
+                "errorStackTrace": {
+                  "type": "string",
+                  "description": "the place where the error appeared in the code."
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "additionalProp1": {
+                      "type": "object"
+                    },
+                    "additionalProp2": {
+                      "type": "object"
+                    },
+                    "additionalProp3": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "error": {
+                  "type": "string",
+                  "description": "identifier of the error."
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "message": "string",
+                  "field": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "originalMessage": "string",
+                  "errorStackTrace": "string",
+                  "data": {
+                    "additionalProp1": {},
+                    "additionalProp2": {},
+                    "additionalProp3": {}
+                  },
+                  "error": "string"
+                }
+              }
+            },
+            "examples": {
+              "401 Unauthorized": {
+                "value": {
+                  "message": "string",
+                  "field": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "originalMessage": "string",
+                  "errorStackTrace": "string",
+                  "data": {
+                    "additionalProp1": {},
+                    "additionalProp2": {},
+                    "additionalProp3": {}
+                  },
+                  "error": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "115-Phone-number-is-already-registered": {
+        "description": "The response status code indicates that the entered user number is already registered.\r\n\r\nMedia type: `*/*`",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "result": "string"
+                }
+              }
+            },
+            "examples": {
+              "115 Phone number is already registered": {
+                "value": {
+                  "result": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "404-Not-Found": {
+        "description": "The response status code indicates that the requested page was not found on the server.\r\n\r\nMedia type: `application/json`",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "message that will be displayed to the user."
+                },
+                "field": {
+                  "type": "string"
+                },
+                "errorId": {
+                  "type": "integer",
+                  "description": "integer identifier of the error."
+                },
+                "systemId": {
+                  "type": "string",
+                  "description": "identifier of the component"
+                },
+                "originalMessage": {
+                  "type": "string"
+                },
+                "errorStackTrace": {
+                  "type": "string",
+                  "description": "the place where the error appeared in the code."
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "additionalProp1": {
+                      "type": "object"
+                    },
+                    "additionalProp2": {
+                      "type": "object"
+                    },
+                    "additionalProp3": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "error": {
+                  "type": "string",
+                  "description": "identifier of the error."
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "message": "string",
+                  "field": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "originalMessage": "string",
+                  "errorStackTrace": "string",
+                  "data": {
+                    "additionalProp1": {},
+                    "additionalProp2": {},
+                    "additionalProp3": {}
+                  },
+                  "error": "string"
+                }
+              }
+            },
+            "examples": {
+              "404 Not Found": {
+                "value": {
+                  "message": "string",
+                  "field": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "originalMessage": "string",
+                  "errorStackTrace": "string",
+                  "data": {
+                    "additionalProp1": {},
+                    "additionalProp2": {},
+                    "additionalProp3": {}
+                  },
+                  "error": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "500-Internal-Server-Error": {
+        "description": "The response status code indicates, indicates that the server cannot process the request correctly.\n\nMedia type: `application/json`",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            },
+            "examples": {
+              "500 Internal Server Error": {
+                "value": {}
+              }
+            }
+          }
+        }
+      },
+      "403-Forbidden": {
+        "description": "The response status code returned to the client by the server when access to the specified resource is restricted.\r\n\r\nMedia type: `application/json`",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            },
+            "examples": {
+              "403 Forbidden": {
+                "value": {}
+              }
+            }
+          }
+        }
+      },
+      "422-Unprocessable-Entity": {
+        "description": "The response status code indicates that the entered user number is already registered.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "errorId": {
+                  "type": "integer"
+                },
+                "systemId": {
+                  "type": "string"
+                },
+                "sessionId": {
+                  "type": "string"
+                },
+                "factors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "default": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              },
+              "x-examples": {
+                "Example 1": {
+                  "message": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "sessionId": "string",
+                  "factors": [
+                    {
+                      "id": "string",
+                      "type": "EMAIL",
+                      "value": "string",
+                      "default": true
+                    }
+                  ]
+                }
+              }
+            },
+            "examples": {
+              "424 Failed Dependency": {
+                "value": {
+                  "message": "string",
+                  "errorId": 0,
+                  "systemId": "string",
+                  "sessionId": "string",
+                  "factors": [
+                    {
+                      "id": "string",
+                      "type": "EMAIL",
+                      "value": "string",
+                      "default": true
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "Authorization: Bearer": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://api.vault.sandbox.testessential.net",
+      "description": "Sandbox"
+    }
+  ]
+}
+}
