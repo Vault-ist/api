@@ -89,7 +89,7 @@ The response status code indicates that the request was successfully processed.
 </details>
 
 <details>
-<summary><strong>400 - Client Error</strong></summary>
+<summary><strong>400 - Bad Request</strong></summary>
 
 The response status code indicates that the requested page was not found on the server.
   
