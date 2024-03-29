@@ -1,8 +1,8 @@
-# Validate Send Coins Request to Another Wallet
+# Get Fee
 
-`POST` **/v1/wallet/send/validate**
+`GET` **/v1/wallet/send/fee/{currency}**
 
-The endpoint serves the purpose of validating a request to send coins to another wallet before executing the actual transaction.
+This endpoint is designed to retrieve information about the fee for sending coins.
 
 ## Request
 
@@ -14,43 +14,36 @@ The endpoint serves the purpose of validating a request to send coins to another
 
 The API provides functionality for conducting transfers, allowing users to specify either the recipient's `wallet address` or `phone number`.
 
-- **address**: `string` *(required)*
-  - Represents the recipient's wallet address.
-
-- **phone**: `string` *(required)*
-  - Represents the recipient's phone number.
-
-- **amount**: `integer` *(required)*
-  - Represents the amount of coins to be sent.
+**Path Parameters:**
 
 - **currency**: `string` *(required)*
-  - Specifies the currency in which the coins are denoted.
+  - The currency for which the fee is being requested.
+  - Example: `USDT`
 
-### **Example body**
-  
-```json
-{
-  "phone": "+447871236668",
-  "amount": 1,
-  "currency": "USDT"
-}
-```
+**Query Parameters:**
+
+- **amount**: `number` *(required)*
+  - The amount to be sent.
+
+- **address**: `string`
+  - The wallet address to which the coins will be sent. Always required for send by wallet.
+
+- **customerId**: `integer<int64>`
+  - The identifier of the customer for whom the operation is performed.
+
+- **phone**: `string`
+  - Recipient's phone number. Needed only for send by phone.
+
 
 #### **Request Sample: cURL**
 
 At the time of sending the request, the curl command should be as follows:
 
 ```curl cURL
-curl --request POST \
-  --url https://api.vault.sandbox.testessential.net/v1/wallet/send/validate \
+curl --request GET \
+  --url 'https://api.vault.sandbox.testessential.net/v1/wallet/send/fee/USDT?address=0x9A6034c84cd431409Ac1a35278c7Da36FfDa53E5&amount=10&customerId=74' \
   --header 'Accept: application/json' \
-  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwNTFhYTc3Mi0yNDk4LTQ0ZTEtODdmYi0zYzNhZDdlMTY1ODgiLCJleHAiOjE3MTE3ODM4OTYsImlhdCI6MTcxMTY5NzQ5Nn0.GBWhOHEIbiOipMa1kXMsamNqT1I6pFBe3-gZ3me1bM4' \
-  --header 'Content-Type: application/json' \
-  --data '{
-  "phone": "+447871236668",
-  "amount": 1,
-  "currency": "USDT"
-}'
+  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwNTFhYTc3Mi0yNDk4LTQ0ZTEtODdmYi0zYzNhZDdlMTY1ODgiLCJleHAiOjE3MDk4ODY0MDMsImlhdCI6MTcwOTgwMDAwM30.P81xYvVSC8HhpY-5ycpGT6cgn2K8nXMRD2E2sESfQPY'
 ```
 
 ## Responses
@@ -62,25 +55,26 @@ The response status code indicates that the request was successfully processed.
   
 **Media type:** `application/json`
   
-- **possibleToExecute**: `boolean` *(required)*
-  - Indicates whether the transaction is possible to execute.
+- **fee**: `integer`
+  - The value of the transaction fee.
+
+- **sourceCurrency**: `string`
+  - The currency in which the fee is specified.
+
+- **transactionType**: `string`
+  - The type of the transaction.
+
+- **transactionAvailability**: `boolean`
+  - A flag indicating the availability of the transaction.
   - **Default:** `true`
-
-- **blockedAmount**: `object` *(required)*
-  - Information about any blocked amount.
-    - **value**: `integer` *(required)*
-      - Numeric value representing the blocked amount.
-    - **currency**: `string` *(required)*
-      - Currency of the blocked funds.
-
   
    **Responses example**
 ```json
 {
-  "blockedAmount": {
-    "value": 0,
-    "currency": "EUR" },
-  "possibleToExecute": true
+  "fee": 26.733816,
+  "sourceCurrency": "USDT",
+  "transactionType": "EXTERNAL",
+  "transactionAvailability": false
 }
 ```
 </details>
