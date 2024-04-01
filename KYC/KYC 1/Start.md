@@ -1,6 +1,6 @@
 # Start
 
-`POST` **/v4/kyc/start*
+`POST` **/v4/kyc/start**
 
 The endpoint is crafted to commence the KYC1 V4 (Know Your Customer Level 1, version 4) identification process, serving as the first step in customer verification and supplying an identifier for continuous monitoring of KYC1 V4 status or acquiring supplementary details.
 
