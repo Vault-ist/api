@@ -1,6 +1,6 @@
-# Start
+# KYC 2
 
-`POST` **/v4/kyc/ondato/finished**
+`POST` **/v1/kyc/upload/document**
 
 The endpoint is used to upload documents as part of the KYC (Know Your Customer) Level 2 identity verification process, transmitting information about the required documents to confirm a user's identity.
 
