@@ -90,7 +90,7 @@ The response status code indicates that the request was successfully processed.
   - Token action space. We almost always have read and write permissions.
 
   
-   **Responses example**
+**Responses example**
 ```json
 {
   "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYTdiM2UzNi1jNTQ4LTQ2NjMtYWNiZi00YjAwOWMyYTExZjgiLCJleHAiOjE3MDk4MjE1MjIsImlhdCI6MTcwOTczNTEyMn0.Syx7vEDUcgEQ-pNJSjFQPh35wia3Qy-2u_GyFCSiXgk",
