@@ -4,8 +4,6 @@
 
 The endpoint is intended for carrying out the actual payment within the context of the offer and for performing payment authorization.
 
-> ❗️ The offer is valid for **20 seconds**. After this time, the offer becomes invalid, and to create a new offer, you need to request its creation again.
-
 > 📘 This endpoint is accessible for `KYC_1` level and higher.
 
 ## Request
