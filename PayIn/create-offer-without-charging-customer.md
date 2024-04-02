@@ -58,8 +58,12 @@ curl --request POST \
 
 <details>
 <summary><strong>200 - OK</strong></summary>
+
+**Media type:** `application/json`
   
-200 OK status and provides detailed information about the created offer.- **offerId**: integer
+200 OK status and provides detailed information about the created offer.
+
+- **offerId**: integer
   - The unique identifier of the created offer.
 - **expirationTime**: string
   - The time when the offer expires.
@@ -185,7 +189,6 @@ curl --request POST \
 }
 ```
 
-**Media type:** `application/json`
   
 </details>
 
@@ -195,7 +198,7 @@ curl --request POST \
 
 The response status code indicates that the requested page was not found on the server.
   
-- **Media type:** `application/json`
+**Media type:** `application/json`
   
   
 
