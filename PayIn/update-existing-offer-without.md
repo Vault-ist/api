@@ -39,6 +39,7 @@ It allows you to adjust the offer details without affecting the client's funds.
   - **linkedPriceCurrency**: string
     - The updated currency of the linked price for insurance.
 
+### **Example body**
 ```json 
 {
   "amount": 117.99,
@@ -143,64 +144,53 @@ curl --request PUT \
 
 ```json 
 {
-  "fees": {
-    "rate": 0.03,
-    "scale": 8,
-    "currency": "EUR",
-    "feeTable": [
-      {
-        "percent": 1.5,
-        "amountTo": {
-          "value": 250,
-          "currency": "EUR"
-        },
-        "amountFrom": {
-          "value": 0,
-          "currency": "EUR"
-        }
-      },
-      {
-        "percent": 0.5,
-        "amountTo": null,
-        "amountFrom": {
-          "value": 250,
-          "currency": "EUR"
-        }
-      }
-    ],
-    "partnerFee": 0,
-    "insuranceFee": null,
-    "crypteriumGas": 0,
-    "transactionFee": 0
-  },
+  "offerId": 7402,
+  "expirationTime": "2024-03-12T07:57:40.844+00:00",
+  "validSeconds": 20,
+  "fromCurrency": "EUR",
   "rate": {
-    "rate": 1.0191216642151713,
+    "rate": 1.0662729658792651,
     "currency": "EUR",
-    "maxCrypto": 0,
-    "minCrypto": 0,
     "commissionFix": 0,
-    "commissionPercentage": 0
+    "commissionPercentage": 0,
+    "minCrypto": 0,
+    "maxCrypto": 0
   },
   "feeInfo": [
     {
-      "name": "Crypt gas",
+      "name": "Crypterium gas",
+      "value": 0.155,
+      "valueOld": 0.155,
       "scale": 8,
-      "value": 0,
-      "currency": "EUR",
-      "valueOld": 0
+      "currency": "EUR"
+    },
+    {
+      "name": "Additional Fee",
+      "value": 0.155,
+      "valueOld": 0.155,
+      "scale": 8,
+      "currency": "EUR"
     },
     {
       "name": "Transaction fee",
+      "value": 0.93,
+      "valueOld": 0.93,
       "scale": 8,
-      "value": 0,
-      "currency": "EUR",
-      "valueOld": 1.76985
+      "currency": "EUR"
     }
   ],
-  "offerId": 515570158,
-  "fromCurrency": "EUR",
-  "validSeconds": 20,
-  "expirationTime": "2023-10-04T15:25:22.543+00:00"
+  "fees": {
+    "currency": "EUR",
+    "scale": 8,
+    "rate": 0.025,
+    "partnerFee": 0,
+    "crypteriumGas": 0.005,
+    "additionalFee": 0.005,
+    "transactionFee": 0.03,
+    "insuranceFee": null,
+    "feeTableEnabled": false,
+    "feeTable": null
+  }
 }
 ```
   
