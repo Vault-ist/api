@@ -61,7 +61,7 @@ curl --request GET \
   - Mode of payment used for the transaction.
 - **transactionDate**: string
   - Date of the transaction. In ISO 8601 format.
-  - *Example*: 2024-01-23T15:05:03.022Z
+  - *Example*: `2024-01-23T15:05:03.022Z`
 - **transactionAmount**: string
   - Transaction amount in string format.
 - **cardCountryCode**: string
