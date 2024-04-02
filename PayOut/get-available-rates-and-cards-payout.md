@@ -31,7 +31,7 @@ curl --request GET \
 <details>
 <summary><strong>200 - OK</strong></summary>
   
-200 OK status, indicating that the card's billing address has been added successfully.
+200 OK status.
   
 **Media type:** `application/json`
 
