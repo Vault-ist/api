@@ -109,64 +109,41 @@ curl --request POST \
           
 ```json 
 {
-  "fees": {
-    "rate": 0.03,
-    "scale": 8,
-    "currency": "EUR",
-    "feeTable": [
-      {
-        "percent": 1.5,
-        "amountTo": {
-          "value": 250,
-          "currency": "EUR"
-        },
-        "amountFrom": {
-          "value": 0,
-          "currency": "EUR"
-        }
-      },
-      {
-        "percent": 0.5,
-        "amountTo": null,
-        "amountFrom": {
-          "value": 250,
-          "currency": "EUR"
-        }
-      }
-    ],
-    "partnerFee": 0,
-    "insuranceFee": null,
-    "crypteriumGas": 0,
-    "transactionFee": 0
-  },
-  "rate": {
-    "rate": 0.00003919001906978183,
-    "currency": "EUR",
-    "maxCrypto": 0,
-    "minCrypto": 0,
-    "commissionFix": 0,
-    "commissionPercentage": 0
-  },
+  "offerId": 9096,
+  "validSeconds": 20,
+  "amount": 760.06209697,
+  "currencyFrom": "USDT",
+  "amountTo": 692.4971369219488,
+  "currencyTo": "EUR",
+  "rate": 0.911106,
   "feeInfo": [
     {
-      "name": "Crypterium gas",
-      "scale": 8,
-      "value": 0,
-      "currency": "EUR",
-      "valueOld": 0
-    },
-    {
+      "currency": "USDT",
       "name": "Transaction fee",
       "scale": 8,
+      "value": 29.29092365395,
+      "type": "TRANSACTION_FEE"
+    },
+    {
+      "currency": "USDT",
+      "name": "Crypterium GAS",
+      "scale": 8,
       "value": 0,
-      "currency": "EUR",
-      "valueOld": 0.465
+      "type": "CRYPTERIUM_GAS"
+    },
+    {
+      "currency": "USDT",
+      "name": "Additional fee",
+      "scale": 8,
+      "value": 0,
+      "type": "ADDITIONAL_FEE"
     }
   ],
-  "offerId": 523424397,
-  "fromCurrency": "EUR",
-  "validSeconds": 20,
-  "expirationTime": "2023-09-26T18:02:57.865+00:00"
+  "possibleToExecute": false,
+  "limit": {
+    "value": 0,
+    "currency": "EUR"
+  }
 }
 ```
 
