@@ -46,13 +46,13 @@ The response provides feedback on the success or failure of the SMS code generat
   
 - **number**: *string*
   - A string representing the card number.
-  - 
+  
 - **cvv**: *string*
   - A string representing the card verification value.
-  - 
+
 - **expiry**: *string*
   - A string representing the card expiry date.
-  - 
+  
 - **cardholderName**: *string*
   - A string representing the name of the cardholder.
   
