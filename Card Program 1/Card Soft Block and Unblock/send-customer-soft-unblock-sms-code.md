@@ -2,7 +2,7 @@
 
 `GET` **/v2/card/{cardId}/soft-unblock/code**
 
-his endpoint is designed for sending a soft unblock SMS code to a customer associated with a specific card.
+This endpoint is designed for sending a soft unblock SMS code to a customer associated with a specific card.
 
 ## Request
 
