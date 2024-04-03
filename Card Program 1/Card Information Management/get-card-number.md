@@ -1,6 +1,6 @@
-# Get RSA Key
+# Get Card Number
 
-`GET` **/v2/card/rsa-public-key**
+`POST` **/v2/card/{cardId}/number**
 
 This endpoint is designed for retrieving the card number associated with a specific card.
 
