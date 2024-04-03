@@ -38,6 +38,8 @@ curl --request POST \
 <details>
 <summary><strong>200 - Success Response</strong></summary>
 
+The response status code indicates that the request was successfully processed.
+
 **Media type:** `application/json`
 
 - **offerId**: integer
