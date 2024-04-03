@@ -13,7 +13,7 @@ This endpoint is designed for retrieving detailed information about a specific c
 - **cardId**: *integer<int64>* *(required)*
   - Unique identifier of the card for which the details are being retrieved.
 
-### ### Body
+### Body
 
 This endpoint is intended for securely obtaining detailed information about the specified card, including the card number, CVV, expiry date, and cardholder name. The verification code and public key are used for authentication and encryption, respectively, to enhance security during the retrieval process.
 
