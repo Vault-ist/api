@@ -108,7 +108,7 @@ The response status code indicates that the request was successfully processed.
 
 The response status code indicates that the requested page was not found on the server.
   
-- **Media type:** `application/json`
+**Media type:** `application/json`
   
   
 
