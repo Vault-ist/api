@@ -15,6 +15,18 @@ The endpoint is designed for confirming the payment of a card order offer.
   - The unique identifier of the card request that needs to be canceled.
 
 
+#### **Request Sample: cURL**
+
+At the time of sending the request, the curl command should be as follows:
+
+```curl cURL
+curl --request POST \
+  --url https://api.vault.sandbox.testessential.net/v2/card/card-requests/payment-offer/1234/confirm \
+  --header 'Accept: application/json' \
+  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0ZGQyYzA2YS01ZTAyLTQ3ZjMtYWM5Zi1hYzE4Y2Q5Y2ZiNDQiLCJleHAiOjE3MTIyMzAyOTIsImlhdCI6MTcxMjE0Mzg5Mn0.Zf1C96fU6YXbxLec3BSjhqZPRpSRLU-rkj5aw2TL7wY' \
+  --header 'Content-Type: application/json'
+```
+
 ## Responses
 
 <details>
