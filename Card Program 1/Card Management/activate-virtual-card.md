@@ -4,7 +4,6 @@
 
 This endpoint facilitates the activation of virtual cards programmatically using a unique key identifier and activation code. Once activated, the virtual card can be utilized for online transactions and other operations.
 
-The variable `keyId` can be obtained using the endpoint [GET /v2/card/rsa-public-key](https://github.com/Vault-ist/api/blob/main/Card%20Program%201/Get%20RSA%20Key.md).
 
 ## Request
 
@@ -13,6 +12,8 @@ The variable `keyId` can be obtained using the endpoint [GET /v2/card/rsa-public
 **Media Type:** `application/json`
 
 ### Parameters
+
+The variable `keyId` can be obtained using the endpoint [GET /v2/card/rsa-public-key](https://github.com/Vault-ist/api/blob/main/Card%20Program%201/Get%20RSA%20Key.md).
 
 - **keyId**: *string*
   - A unique identifier for the key used in the activation process.
