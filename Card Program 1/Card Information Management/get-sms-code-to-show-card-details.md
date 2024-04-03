@@ -4,6 +4,10 @@
 
 This endpoint is designed to retrieve an SMS code that is required to display the details associated with a specific Card Program 1 card. This additional layer of authentication ensures secure access to sensitive card information.
 
+## Request
+
+**Media Type:** `application/json`
+
 ### Path Parameters
 
 - **cardId**: *integer<int64>* *(required)*
