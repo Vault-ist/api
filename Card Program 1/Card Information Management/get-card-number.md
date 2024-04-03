@@ -4,6 +4,11 @@
 
 This endpoint is designed for retrieving the card number associated with a specific card.
 
+
+## Request
+
+**Media Type:** `application/json`
+
 ### Path Parameters
 
 - **cardId**: *integer<int64>* *(required)*
