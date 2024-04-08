@@ -1,7 +1,7 @@
 name: Vault API
 title: Vault API
 version: 1.5.6
-start_page: README.md
+start_page: /README.md
 asciidoc:
   attributes:
     source-language: asciidoc@
